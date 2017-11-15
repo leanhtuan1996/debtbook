@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1031" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="33H-Wz-c5O">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Debts-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DebtsVC" title="Debts" id="BYZ-38-t0r" customClass="DebtsVC" customModule="DebtBook" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +20,89 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search Debtors" translatesAutoresizingMaskIntoConstraints="NO" id="gCi-n3-UvJ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Qhr-EM-ZBJ"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aKE-95-WC6">
+                                <rect key="frame" x="0.0" y="109" width="375" height="513"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3a3-SR-j3u">
+                                <rect key="frame" x="0.0" y="622" width="375" height="45"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total debts: 900000 VNĐ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zey-4Q-37X">
+                                        <rect key="frame" x="99.5" y="13.5" width="176" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="zey-4Q-37X" firstAttribute="centerX" secondItem="3a3-SR-j3u" secondAttribute="centerX" id="M0I-wI-qzL"/>
+                                    <constraint firstItem="zey-4Q-37X" firstAttribute="centerY" secondItem="3a3-SR-j3u" secondAttribute="centerY" id="REq-Pn-Wdd"/>
+                                    <constraint firstAttribute="height" constant="45" id="asK-00-I84"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="aKE-95-WC6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5et-TF-tm9"/>
+                            <constraint firstItem="3a3-SR-j3u" firstAttribute="top" secondItem="aKE-95-WC6" secondAttribute="bottom" id="TtF-GZ-fYN"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3a3-SR-j3u" secondAttribute="bottom" id="WxB-x8-EuP"/>
+                            <constraint firstAttribute="trailing" secondItem="gCi-n3-UvJ" secondAttribute="trailing" id="XWm-Jc-DLl"/>
+                            <constraint firstItem="aKE-95-WC6" firstAttribute="top" secondItem="gCi-n3-UvJ" secondAttribute="bottom" id="h3d-hC-P2h"/>
+                            <constraint firstItem="gCi-n3-UvJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="liy-Mb-usx"/>
+                            <constraint firstAttribute="trailing" secondItem="3a3-SR-j3u" secondAttribute="trailing" id="mlN-um-4HK"/>
+                            <constraint firstAttribute="trailing" secondItem="aKE-95-WC6" secondAttribute="trailing" id="u2B-E2-MQB"/>
+                            <constraint firstItem="gCi-n3-UvJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uId-EM-eWI"/>
+                            <constraint firstItem="3a3-SR-j3u" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zgR-ls-0VF"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Debts" id="3rW-6n-YkU">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="edit" id="cBy-pF-ZbW">
+                            <connections>
+                                <action selector="btnEditDebtorClicked:" destination="BYZ-38-t0r" id="jEB-He-cZN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="vrW-WS-k5U">
+                            <connections>
+                                <action selector="btnAddDebtorClicked:" destination="BYZ-38-t0r" id="gLR-JV-SAR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="lblTotals" destination="zey-4Q-37X" id="IYh-3g-Gb0"/>
+                        <outlet property="tblDebtors" destination="aKE-95-WC6" id="hf5-2W-vob"/>
+                        <outlet property="txtSearchDebtor" destination="gCi-n3-UvJ" id="ZAK-t5-QeV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="116" y="178.56071964017991"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UK8-Cn-N6d">
+            <objects>
+                <navigationController storyboardIdentifier="navi" automaticallyAdjustsScrollViewInsets="NO" id="33H-Wz-c5O" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yzO-ra-fGH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Spr-e3-akc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sBa-hg-nS8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="-560.86956521739137"/>
         </scene>
     </scenes>
 </document>

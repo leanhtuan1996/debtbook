@@ -8,8 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		29CEC6A29B6B831042D5A735 /* Pods_DebtBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3631B8AC456CEBCC1FF50708 /* Pods_DebtBook.framework */; };
+		360511F01FBC7D6500BF3F07 /* DebtorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511EE1FBC7D6500BF3F07 /* DebtorCell.swift */; };
+		360511F11FBC7D6500BF3F07 /* DebtorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360511EF1FBC7D6500BF3F07 /* DebtorCell.xib */; };
+		360511F31FBC7F2300BF3F07 /* DebtorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F21FBC7F2300BF3F07 /* DebtorObject.swift */; };
+		360511F51FBC82CA00BF3F07 /* DebtsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F41FBC82CA00BF3F07 /* DebtsRouter.swift */; };
+		360511F71FBC851400BF3F07 /* DebtServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F61FBC851400BF3F07 /* DebtServices.swift */; };
+		360512031FBC866300BF3F07 /* Extensions+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F91FBC866300BF3F07 /* Extensions+Data.swift */; };
+		360512041FBC866300BF3F07 /* Extensions+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FA1FBC866300BF3F07 /* Extensions+Date.swift */; };
+		360512051FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FB1FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift */; };
+		360512061FBC866300BF3F07 /* Extensions+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FC1FBC866300BF3F07 /* Extensions+Int.swift */; };
+		360512071FBC866300BF3F07 /* Extensions+NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FD1FBC866300BF3F07 /* Extensions+NSError.swift */; };
+		360512081FBC866300BF3F07 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FE1FBC866300BF3F07 /* Extensions+String.swift */; };
+		360512091FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FF1FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift */; };
+		3605120A1FBC866300BF3F07 /* Extensions+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512001FBC866300BF3F07 /* Extensions+UIImageView.swift */; };
+		3605120B1FBC866300BF3F07 /* Extensions+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512011FBC866300BF3F07 /* Extensions+UINavigationController.swift */; };
+		3605120C1FBC866300BF3F07 /* Extensions+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */; };
+		3605120E1FBC868000BF3F07 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605120D1FBC868000BF3F07 /* Helpers.swift */; };
+		360512101FBC9E3E00BF3F07 /* DetailDebtorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */; };
+		364AB9521FBC428D0069898D /* DebtsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364AB9511FBC428D0069898D /* DebtsVC.swift */; };
 		36EB186C1FBC3435002924D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB185D1FBC3435002924D1 /* AppDelegate.swift */; };
-		36EB186D1FBC3435002924D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB18641FBC3435002924D1 /* ViewController.swift */; };
 		36EB186E1FBC3435002924D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36EB18661FBC3435002924D1 /* Assets.xcassets */; };
 		36EB186F1FBC3435002924D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36EB18681FBC3435002924D1 /* LaunchScreen.storyboard */; };
 		36EB18701FBC3435002924D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36EB18691FBC3435002924D1 /* Main.storyboard */; };
@@ -18,10 +35,27 @@
 
 /* Begin PBXFileReference section */
 		0966BD5B0B1DA0DC24D0DCA9 /* Pods-DebtBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DebtBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-DebtBook/Pods-DebtBook.release.xcconfig"; sourceTree = "<group>"; };
+		360511EE1FBC7D6500BF3F07 /* DebtorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtorCell.swift; sourceTree = "<group>"; };
+		360511EF1FBC7D6500BF3F07 /* DebtorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DebtorCell.xib; sourceTree = "<group>"; };
+		360511F21FBC7F2300BF3F07 /* DebtorObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtorObject.swift; sourceTree = "<group>"; };
+		360511F41FBC82CA00BF3F07 /* DebtsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtsRouter.swift; sourceTree = "<group>"; };
+		360511F61FBC851400BF3F07 /* DebtServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtServices.swift; sourceTree = "<group>"; };
+		360511F91FBC866300BF3F07 /* Extensions+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Data.swift"; sourceTree = "<group>"; };
+		360511FA1FBC866300BF3F07 /* Extensions+Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Date.swift"; sourceTree = "<group>"; };
+		360511FB1FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+HTTPURLResponse.swift"; sourceTree = "<group>"; };
+		360511FC1FBC866300BF3F07 /* Extensions+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Int.swift"; sourceTree = "<group>"; };
+		360511FD1FBC866300BF3F07 /* Extensions+NSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+NSError.swift"; sourceTree = "<group>"; };
+		360511FE1FBC866300BF3F07 /* Extensions+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
+		360511FF1FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIActivityIndicatorView.swift"; sourceTree = "<group>"; };
+		360512001FBC866300BF3F07 /* Extensions+UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIImageView.swift"; sourceTree = "<group>"; };
+		360512011FBC866300BF3F07 /* Extensions+UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UINavigationController.swift"; sourceTree = "<group>"; };
+		360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIViewController.swift"; sourceTree = "<group>"; };
+		3605120D1FBC868000BF3F07 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDebtorObject.swift; sourceTree = "<group>"; };
 		3631B8AC456CEBCC1FF50708 /* Pods_DebtBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DebtBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		364AB9511FBC428D0069898D /* DebtsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtsVC.swift; sourceTree = "<group>"; };
 		36EB18461FBC3312002924D1 /* DebtBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36EB185D1FBC3435002924D1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		36EB18641FBC3435002924D1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		36EB18661FBC3435002924D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36EB18681FBC3435002924D1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		36EB18691FBC3435002924D1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -48,6 +82,32 @@
 				0966BD5B0B1DA0DC24D0DCA9 /* Pods-DebtBook.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		360511ED1FBC7D4B00BF3F07 /* DebtorCell */ = {
+			isa = PBXGroup;
+			children = (
+				360511EE1FBC7D6500BF3F07 /* DebtorCell.swift */,
+				360511EF1FBC7D6500BF3F07 /* DebtorCell.xib */,
+			);
+			path = DebtorCell;
+			sourceTree = "<group>";
+		};
+		360511F81FBC863800BF3F07 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3605120D1FBC868000BF3F07 /* Helpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		364AB9501FBC42610069898D /* Debts */ = {
+			isa = PBXGroup;
+			children = (
+				360511ED1FBC7D4B00BF3F07 /* DebtorCell */,
+				364AB9511FBC428D0069898D /* DebtsVC.swift */,
+			);
+			path = Debts;
 			sourceTree = "<group>";
 		};
 		36EB183D1FBC3312002924D1 = {
@@ -82,6 +142,7 @@
 		36EB185B1FBC3435002924D1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				360511F81FBC863800BF3F07 /* Helpers */,
 				36EB185C1FBC3435002924D1 /* Apps */,
 				36EB185E1FBC3435002924D1 /* Extensions */,
 				36EB185F1FBC3435002924D1 /* Models */,
@@ -104,6 +165,16 @@
 		36EB185E1FBC3435002924D1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				360511F91FBC866300BF3F07 /* Extensions+Data.swift */,
+				360511FA1FBC866300BF3F07 /* Extensions+Date.swift */,
+				360511FB1FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift */,
+				360511FC1FBC866300BF3F07 /* Extensions+Int.swift */,
+				360511FD1FBC866300BF3F07 /* Extensions+NSError.swift */,
+				360511FE1FBC866300BF3F07 /* Extensions+String.swift */,
+				360511FF1FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift */,
+				360512001FBC866300BF3F07 /* Extensions+UIImageView.swift */,
+				360512011FBC866300BF3F07 /* Extensions+UINavigationController.swift */,
+				360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -111,6 +182,8 @@
 		36EB185F1FBC3435002924D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				360511F21FBC7F2300BF3F07 /* DebtorObject.swift */,
+				3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -125,6 +198,7 @@
 		36EB18611FBC3435002924D1 /* Routers */ = {
 			isa = PBXGroup;
 			children = (
+				360511F41FBC82CA00BF3F07 /* DebtsRouter.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -132,6 +206,7 @@
 		36EB18621FBC3435002924D1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				360511F61FBC851400BF3F07 /* DebtServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -139,7 +214,7 @@
 		36EB18631FBC3435002924D1 /* UIs */ = {
 			isa = PBXGroup;
 			children = (
-				36EB18641FBC3435002924D1 /* ViewController.swift */,
+				364AB9501FBC42610069898D /* Debts */,
 			);
 			path = UIs;
 			sourceTree = "<group>";
@@ -244,6 +319,7 @@
 				36EB18701FBC3435002924D1 /* Main.storyboard in Resources */,
 				36EB186E1FBC3435002924D1 /* Assets.xcassets in Resources */,
 				36EB186F1FBC3435002924D1 /* LaunchScreen.storyboard in Resources */,
+				360511F11FBC7D6500BF3F07 /* DebtorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,8 +386,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36EB186D1FBC3435002924D1 /* ViewController.swift in Sources */,
+				360511F71FBC851400BF3F07 /* DebtServices.swift in Sources */,
+				360512041FBC866300BF3F07 /* Extensions+Date.swift in Sources */,
+				3605120A1FBC866300BF3F07 /* Extensions+UIImageView.swift in Sources */,
+				360511F31FBC7F2300BF3F07 /* DebtorObject.swift in Sources */,
 				36EB186C1FBC3435002924D1 /* AppDelegate.swift in Sources */,
+				360512031FBC866300BF3F07 /* Extensions+Data.swift in Sources */,
+				360512071FBC866300BF3F07 /* Extensions+NSError.swift in Sources */,
+				360512101FBC9E3E00BF3F07 /* DetailDebtorObject.swift in Sources */,
+				360512061FBC866300BF3F07 /* Extensions+Int.swift in Sources */,
+				360512091FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift in Sources */,
+				360511F51FBC82CA00BF3F07 /* DebtsRouter.swift in Sources */,
+				3605120E1FBC868000BF3F07 /* Helpers.swift in Sources */,
+				360512081FBC866300BF3F07 /* Extensions+String.swift in Sources */,
+				360511F01FBC7D6500BF3F07 /* DebtorCell.swift in Sources */,
+				3605120C1FBC866300BF3F07 /* Extensions+UIViewController.swift in Sources */,
+				3605120B1FBC866300BF3F07 /* Extensions+UINavigationController.swift in Sources */,
+				360512051FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift in Sources */,
+				364AB9521FBC428D0069898D /* DebtsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
