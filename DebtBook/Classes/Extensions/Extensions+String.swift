@@ -16,7 +16,7 @@ extension String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         if let dateFormatted = dateFormatter.date(from: self) {
             //convert date to "yyyy-MM-dd" format
-            dateFormatter.dateFormat = "MM/dd/yyyy"
+            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
             return dateFormatter.string(from: dateFormatted)
         } else {
             return ""

@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Search Debtors" translatesAutoresizingMaskIntoConstraints="NO" id="gCi-n3-UvJ">
+                            <searchBar contentMode="redraw" placeholder="Tìm kiếm những người mượn nợ" translatesAutoresizingMaskIntoConstraints="NO" id="gCi-n3-UvJ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Qhr-EM-ZBJ"/>
@@ -64,7 +64,7 @@
                             <constraint firstItem="3a3-SR-j3u" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zgR-ls-0VF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Debts" id="3rW-6n-YkU">
+                    <navigationItem key="navigationItem" title="Danh sách người nợ" id="3rW-6n-YkU">
                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="edit" id="cBy-pF-ZbW">
                             <connections>
                                 <action selector="btnEditDebtorClicked:" destination="BYZ-38-t0r" id="jEB-He-cZN"/>
@@ -73,6 +73,7 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="vrW-WS-k5U">
                             <connections>
                                 <action selector="btnAddDebtorClicked:" destination="BYZ-38-t0r" id="gLR-JV-SAR"/>
+                                <segue destination="kTp-hp-8o8" kind="show" id="nUr-xb-zgR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -85,6 +86,78 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="116" y="178.56071964017991"/>
+        </scene>
+        <!--Details DebtorVC-->
+        <scene sceneID="phf-A0-HPv">
+            <objects>
+                <viewController storyboardIdentifier="DetailsDebtorVC" id="h3p-nH-vCm" customClass="DetailsDebtorVC" customModule="DebtBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1ik-1k-0Nx"/>
+                        <viewControllerLayoutGuide type="bottom" id="Gge-3L-XxL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lFx-qZ-Onu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dmq-vC-4Hc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="622"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfW-kN-tu8">
+                                <rect key="frame" x="0.0" y="622" width="375" height="45"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ups-SW-a7I">
+                                        <rect key="frame" x="166" y="12" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="DOX-ed-unQ"/>
+                                    <constraint firstItem="ups-SW-a7I" firstAttribute="centerX" secondItem="cfW-kN-tu8" secondAttribute="centerX" id="EPu-qJ-rnU"/>
+                                    <constraint firstItem="ups-SW-a7I" firstAttribute="centerY" secondItem="cfW-kN-tu8" secondAttribute="centerY" id="aXI-zD-Hkq"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cfW-kN-tu8" firstAttribute="leading" secondItem="lFx-qZ-Onu" secondAttribute="leading" id="8YZ-3D-RwS"/>
+                            <constraint firstItem="dmq-vC-4Hc" firstAttribute="leading" secondItem="lFx-qZ-Onu" secondAttribute="leading" id="BRe-hr-4P1"/>
+                            <constraint firstAttribute="trailing" secondItem="dmq-vC-4Hc" secondAttribute="trailing" id="EWb-3U-YEL"/>
+                            <constraint firstItem="cfW-kN-tu8" firstAttribute="top" secondItem="dmq-vC-4Hc" secondAttribute="bottom" id="QWd-kn-mAm"/>
+                            <constraint firstItem="Gge-3L-XxL" firstAttribute="top" secondItem="cfW-kN-tu8" secondAttribute="bottom" id="ZmE-qd-zhj"/>
+                            <constraint firstItem="dmq-vC-4Hc" firstAttribute="top" secondItem="lFx-qZ-Onu" secondAttribute="top" id="o6R-nk-T1Q"/>
+                            <constraint firstAttribute="trailing" secondItem="cfW-kN-tu8" secondAttribute="trailing" id="tQl-n6-qvD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblTotalDebts" destination="ups-SW-a7I" id="7L8-HN-NMp"/>
+                        <outlet property="tblDetailDebtors" destination="dmq-vC-4Hc" id="pbJ-GL-cD6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GVq-uo-Ihq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="903"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="CvZ-Wl-U9L">
+            <objects>
+                <viewController id="kTp-hp-8o8" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DW1-6g-m7S"/>
+                        <viewControllerLayoutGuide type="bottom" id="ux8-ma-4qL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fRy-w7-bWR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qdt-pG-cQP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="812" y="179"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UK8-Cn-N6d">

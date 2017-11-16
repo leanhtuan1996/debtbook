@@ -34,7 +34,7 @@ enum DebtsRouter: URLRequestConvertible {
         case .getDebts:
             return .get
         case .getDebt:
-            return .get
+            return .post
         case .addDetailDebt:
             return .post
         case .deleteDetailDebt:

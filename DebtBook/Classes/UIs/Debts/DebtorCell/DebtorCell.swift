@@ -13,6 +13,7 @@ class DebtorCell: UITableViewCell {
     @IBOutlet weak var lblFullName: UILabel!
     @IBOutlet weak var lblDebit: UILabel!
     @IBOutlet weak var lblAddress: UILabel!
+    @IBOutlet weak var lblPhoneNumber: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

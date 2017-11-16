@@ -67,11 +67,21 @@ class DebtServices: NSObject {
                 return completionHandler(nil, "Data respone not found")
             }
             
-            guard let debtor = DebtorObject(data: data) else {
-                return completionHandler(nil, "Convert data to object has been failed")
+            guard let dataJson = data.toDictionary() else {
+                return completionHandler(nil, "Convert data to json has been failed")
             }
             
-            return completionHandler(debtor, nil)
+            guard let debtorJson = dataJson["debtorInfo"] as? JSON, let detailDebtorJson = dataJson["details"] as? [JSON] else {
+                return completionHandler(nil, "Data debtor not found")
+            }
+            
+            guard let debtorObject = DebtorObject(json: debtorJson), let detailDebtor = [DetailDebtorObject].from(jsonArray: detailDebtorJson) else {
+                return completionHandler(nil, "Convert data json to Object has been failed")
+            }
+            
+            debtorObject.detail = detailDebtor
+            
+            return completionHandler(debtorObject, nil)
         }
     }
     

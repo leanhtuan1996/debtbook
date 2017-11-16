@@ -45,7 +45,7 @@ class DebtorObject: NSObject, Glossy {
         self.totalDebit = "currentdebit" <~~ json
         self.dateCreated = "created_at" <~~ json
         
-        
+                
         if let detailDebtor: [JSON] = "details" <~~ json {
             if let detailsDebtor = [DetailDebtorObject].from(jsonArray: detailDebtor) {
                 self.detail = detailsDebtor

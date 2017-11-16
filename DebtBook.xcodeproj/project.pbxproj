@@ -25,11 +25,15 @@
 		3605120C1FBC866300BF3F07 /* Extensions+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */; };
 		3605120E1FBC868000BF3F07 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605120D1FBC868000BF3F07 /* Helpers.swift */; };
 		360512101FBC9E3E00BF3F07 /* DetailDebtorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */; };
+		360512131FBCA90C00BF3F07 /* DetailsDebtorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512121FBCA90C00BF3F07 /* DetailsDebtorVC.swift */; };
+		360512191FBCA99C00BF3F07 /* DetailsDebtorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512171FBCA99C00BF3F07 /* DetailsDebtorCell.swift */; };
+		3605121A1FBCA99C00BF3F07 /* DetailsDebtorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360512181FBCA99C00BF3F07 /* DetailsDebtorCell.xib */; };
+		3605123C1FBD529B00BF3F07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3605123A1FBD529B00BF3F07 /* Main.storyboard */; };
+		360512421FBD557A00BF3F07 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 360512401FBD557A00BF3F07 /* Localizable.strings */; };
 		364AB9521FBC428D0069898D /* DebtsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364AB9511FBC428D0069898D /* DebtsVC.swift */; };
 		36EB186C1FBC3435002924D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB185D1FBC3435002924D1 /* AppDelegate.swift */; };
 		36EB186E1FBC3435002924D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36EB18661FBC3435002924D1 /* Assets.xcassets */; };
 		36EB186F1FBC3435002924D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36EB18681FBC3435002924D1 /* LaunchScreen.storyboard */; };
-		36EB18701FBC3435002924D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36EB18691FBC3435002924D1 /* Main.storyboard */; };
 		36EB18711FBC3435002924D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36EB186B1FBC3435002924D1 /* Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -52,13 +56,17 @@
 		360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIViewController.swift"; sourceTree = "<group>"; };
 		3605120D1FBC868000BF3F07 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDebtorObject.swift; sourceTree = "<group>"; };
+		360512121FBCA90C00BF3F07 /* DetailsDebtorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsDebtorVC.swift; sourceTree = "<group>"; };
+		360512171FBCA99C00BF3F07 /* DetailsDebtorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsDebtorCell.swift; sourceTree = "<group>"; };
+		360512181FBCA99C00BF3F07 /* DetailsDebtorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsDebtorCell.xib; sourceTree = "<group>"; };
+		3605123B1FBD529B00BF3F07 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = vi; path = Main.storyboard; sourceTree = "<group>"; };
+		360512411FBD557A00BF3F07 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = Localizable.strings; sourceTree = "<group>"; };
 		3631B8AC456CEBCC1FF50708 /* Pods_DebtBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DebtBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		364AB9511FBC428D0069898D /* DebtsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtsVC.swift; sourceTree = "<group>"; };
 		36EB18461FBC3312002924D1 /* DebtBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36EB185D1FBC3435002924D1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36EB18661FBC3435002924D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36EB18681FBC3435002924D1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		36EB18691FBC3435002924D1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		36EB186B1FBC3435002924D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C110E663BA4FD93D58FC997F /* Pods-DebtBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DebtBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DebtBook/Pods-DebtBook.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,9 +109,37 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		360512111FBCA8FC00BF3F07 /* DetailsDebtor */ = {
+			isa = PBXGroup;
+			children = (
+				360512141FBCA97E00BF3F07 /* DetailDebtorCell */,
+				360512121FBCA90C00BF3F07 /* DetailsDebtorVC.swift */,
+			);
+			path = DetailsDebtor;
+			sourceTree = "<group>";
+		};
+		360512141FBCA97E00BF3F07 /* DetailDebtorCell */ = {
+			isa = PBXGroup;
+			children = (
+				360512171FBCA99C00BF3F07 /* DetailsDebtorCell.swift */,
+				360512181FBCA99C00BF3F07 /* DetailsDebtorCell.xib */,
+			);
+			path = DetailDebtorCell;
+			sourceTree = "<group>";
+		};
+		360512391FBD529B00BF3F07 /* vi.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				3605123A1FBD529B00BF3F07 /* Main.storyboard */,
+				360512401FBD557A00BF3F07 /* Localizable.strings */,
+			);
+			path = vi.lproj;
+			sourceTree = "<group>";
+		};
 		364AB9501FBC42610069898D /* Debts */ = {
 			isa = PBXGroup;
 			children = (
+				360512111FBCA8FC00BF3F07 /* DetailsDebtor */,
 				360511ED1FBC7D4B00BF3F07 /* DebtorCell */,
 				364AB9511FBC428D0069898D /* DebtsVC.swift */,
 			);
@@ -230,8 +266,8 @@
 		36EB18671FBC3435002924D1 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				360512391FBD529B00BF3F07 /* vi.lproj */,
 				36EB18681FBC3435002924D1 /* LaunchScreen.storyboard */,
-				36EB18691FBC3435002924D1 /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -298,7 +334,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				vi,
 			);
 			mainGroup = 36EB183D1FBC3312002924D1;
 			productRefGroup = 36EB18471FBC3312002924D1 /* Products */;
@@ -315,8 +351,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3605123C1FBD529B00BF3F07 /* Main.storyboard in Resources */,
+				3605121A1FBCA99C00BF3F07 /* DetailsDebtorCell.xib in Resources */,
 				36EB18711FBC3435002924D1 /* Info.plist in Resources */,
-				36EB18701FBC3435002924D1 /* Main.storyboard in Resources */,
+				360512421FBD557A00BF3F07 /* Localizable.strings in Resources */,
 				36EB186E1FBC3435002924D1 /* Assets.xcassets in Resources */,
 				36EB186F1FBC3435002924D1 /* LaunchScreen.storyboard in Resources */,
 				360511F11FBC7D6500BF3F07 /* DebtorCell.xib in Resources */,
@@ -402,12 +440,33 @@
 				360511F01FBC7D6500BF3F07 /* DebtorCell.swift in Sources */,
 				3605120C1FBC866300BF3F07 /* Extensions+UIViewController.swift in Sources */,
 				3605120B1FBC866300BF3F07 /* Extensions+UINavigationController.swift in Sources */,
+				360512191FBCA99C00BF3F07 /* DetailsDebtorCell.swift in Sources */,
+				360512131FBCA90C00BF3F07 /* DetailsDebtorVC.swift in Sources */,
 				360512051FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift in Sources */,
 				364AB9521FBC428D0069898D /* DebtsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3605123A1FBD529B00BF3F07 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3605123B1FBD529B00BF3F07 /* vi */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		360512401FBD557A00BF3F07 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				360512411FBD557A00BF3F07 /* vi */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		36EB18561FBC3313002924D1 /* Debug */ = {

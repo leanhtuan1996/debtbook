@@ -29,12 +29,14 @@ class DebtsVC: UIViewController {
         tblDebtors.delegate = self
         tblDebtors.dataSource = self
         tblDebtors.refreshControl = refreshCtrl
-        tblDebtors.estimatedRowHeight = 65
+        tblDebtors.estimatedRowHeight = 80
         
+        self.navigationController?.navigationItem.leftBarButtonItem?.title = "Chỉnh sửa"
         
         //loading debtors
         loadDebtors()
     }
+
     
     func loadDebtors() {
         
@@ -61,7 +63,7 @@ class DebtsVC: UIViewController {
                         totalDepts += debtor.totalDebit ?? 0
                     })
                     
-                    self.lblTotals.text = "Total debts: \(totalDepts.toString())"
+                    self.lblTotals.text = "Tổng số tiền nợ: \(totalDepts.toString())"
                     
                 } else {
                    self.showAlert("Debtors not found", title: "Oops", buttons: nil)
@@ -90,6 +92,7 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.lblFullName.text = "\(self.debtors[indexPath.row].name ?? "Lê Anh Tuấn")"
         cell.lblDebit.text = "\(self.debtors[indexPath.row].totalDebit ?? 0) VNĐ"
+        cell.lblPhoneNumber.text = self.debtors[indexPath.row].phoneNumber ?? ""
         
         if let address = self.debtors[indexPath.row].address, let district = self.debtors[indexPath.row].district {
             cell.lblAddress.text = "\(address), \(district)"
@@ -103,5 +106,15 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return debtors.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "DetailsDebtorVC") as? DetailsDebtorVC else {
+            return
+        }
+        
+        vc.idDebtor = self.debtors[indexPath.row].id
+                
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
