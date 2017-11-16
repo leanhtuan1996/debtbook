@@ -16,28 +16,41 @@ class DetailsDebtorVC: UIViewController {
     var debtor: DebtorObject?
     var loading = UIActivityIndicatorView()
     var idDebtor: Int?
-    var checkBorrow = 0
+    var checkBorrow = 1
     var checkPayment = 0
+    var refresh = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.refresh.addTarget(self, action: #selector(refreshing), for: UIControlEvents.valueChanged)
         
         self.tblDetailDebtors.delegate = self
         self.tblDetailDebtors.dataSource = self
         self.tblDetailDebtors.estimatedRowHeight = 70
         self.tblDetailDebtors.register(UINib(nibName: "DetailsDebtorCell", bundle: nil), forCellReuseIdentifier: "DetailsDebtorCell")
+        self.tblDetailDebtors.refreshControl = self.refresh
         
         self.loadDetailDebtor()
     }
     
     func loadDetailDebtor() {
         
+        if !self.refresh.isRefreshing {
+            self.loading.showLoadingDialog(self)
+        }
+        
         guard let id = self.idDebtor else {
             return
         }
-        self.loading.showLoadingDialog(self)
+        
         DebtServices.shared.getDebtor(with: id) { (debtor, error) in
             self.loading.stopAnimating()
+            
+            if self.refresh.isRefreshing {
+                self.refresh.endRefreshing()
+            }
+            
             if let error = error {
                 self.showAlert(error, title: "Oops", buttons: nil)
             } else {
@@ -55,8 +68,16 @@ class DetailsDebtorVC: UIViewController {
                 
                 self.lblTotalDebts.text = "Tổng số tiền nợ: \(total.toString())"
                 
+                self.checkBorrow = 1
+                self.checkPayment = 0
+                
             }
         }
+    }
+    
+    func refreshing() {
+        self.refresh.beginRefreshing()
+        self.loadDetailDebtor()
     }
 
 }
@@ -74,12 +95,6 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
                 cell.lblNumberOfTimesBorrowed.text = "Lần mượn đầu tiên"
             }
         } else {
-            
-            /*
-             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "Your Text")
-             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
-             */
-            
             if let debt = detail[indexPath.row - 1].debt, debt <= 0 {
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\((debt * (-1)).toString())")
                 attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))

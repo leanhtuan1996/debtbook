@@ -35,11 +35,17 @@ extension String {
     }
     
     func toInt() -> Int? {
-        
         if let int = Int(self) {
             return int
         }
         return nil
+    }
+    
+    func isInt() -> Bool {
+        if let _ = Int(self) {
+            return true
+        }
+        return false
     }
 }
 

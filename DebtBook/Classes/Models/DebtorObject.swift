@@ -57,10 +57,10 @@ class DebtorObject: NSObject, Glossy {
     func toJSON() -> JSON? {
         return jsonify([
             "name" ~~> self.name,
-            "phoneNumber" ~~> self.phoneNumber,
+            "phonenumber" ~~> self.phoneNumber,
             "address" ~~> self.address,
             "district" ~~> self.district,
-            "firstDebit" ~~> self.firstDebit
+            "firstdebit" ~~> self.firstDebit
             ])
     }
 }

@@ -79,8 +79,18 @@ class DebtsVC: UIViewController {
     
     
     @IBAction func btnAddDebtorClicked(_ sender: Any) {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "AddDebtorVC") as? AddDebtorVC else {
+            return
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func btnEditDebtorClicked(_ sender: Any) {
+        if self.tblDebtors.isEditing {
+            self.tblDebtors.setEditing(false, animated: true)
+            
+        } else {
+            self.tblDebtors.setEditing(true, animated: true)
+        }
     }
 }
 
@@ -116,5 +126,12 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
         vc.idDebtor = self.debtors[indexPath.row].id
                 
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Xoá") { (rowAction, indexPath) in
+            
+        }
+        return [deleteAction]
     }
 }

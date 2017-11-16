@@ -30,6 +30,10 @@
 		3605121A1FBCA99C00BF3F07 /* DetailsDebtorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360512181FBCA99C00BF3F07 /* DetailsDebtorCell.xib */; };
 		3605123C1FBD529B00BF3F07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3605123A1FBD529B00BF3F07 /* Main.storyboard */; };
 		360512421FBD557A00BF3F07 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 360512401FBD557A00BF3F07 /* Localizable.strings */; };
+		360DF4331FBDAA7E00BC04B2 /* AddDebtorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360DF4321FBDAA7E00BC04B2 /* AddDebtorVC.swift */; };
+		360DF4361FBDDFDC00BC04B2 /* SelectDistrictsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360DF4351FBDDFDC00BC04B2 /* SelectDistrictsVC.swift */; };
+		360DF43A1FBDE8CA00BC04B2 /* DistrictCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360DF4381FBDE8CA00BC04B2 /* DistrictCell.swift */; };
+		360DF43B1FBDE8CA00BC04B2 /* DistrictCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360DF4391FBDE8CA00BC04B2 /* DistrictCell.xib */; };
 		364AB9521FBC428D0069898D /* DebtsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364AB9511FBC428D0069898D /* DebtsVC.swift */; };
 		36EB186C1FBC3435002924D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EB185D1FBC3435002924D1 /* AppDelegate.swift */; };
 		36EB186E1FBC3435002924D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36EB18661FBC3435002924D1 /* Assets.xcassets */; };
@@ -61,6 +65,10 @@
 		360512181FBCA99C00BF3F07 /* DetailsDebtorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsDebtorCell.xib; sourceTree = "<group>"; };
 		3605123B1FBD529B00BF3F07 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = vi; path = Main.storyboard; sourceTree = "<group>"; };
 		360512411FBD557A00BF3F07 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = Localizable.strings; sourceTree = "<group>"; };
+		360DF4321FBDAA7E00BC04B2 /* AddDebtorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDebtorVC.swift; sourceTree = "<group>"; };
+		360DF4351FBDDFDC00BC04B2 /* SelectDistrictsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDistrictsVC.swift; sourceTree = "<group>"; };
+		360DF4381FBDE8CA00BC04B2 /* DistrictCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictCell.swift; sourceTree = "<group>"; };
+		360DF4391FBDE8CA00BC04B2 /* DistrictCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DistrictCell.xib; sourceTree = "<group>"; };
 		3631B8AC456CEBCC1FF50708 /* Pods_DebtBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DebtBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		364AB9511FBC428D0069898D /* DebtsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtsVC.swift; sourceTree = "<group>"; };
 		36EB18461FBC3312002924D1 /* DebtBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,9 +144,37 @@
 			path = vi.lproj;
 			sourceTree = "<group>";
 		};
+		360DF4231FBD950D00BC04B2 /* AddDebtor */ = {
+			isa = PBXGroup;
+			children = (
+				360DF4341FBDDFC500BC04B2 /* SelectDistricts */,
+				360DF4321FBDAA7E00BC04B2 /* AddDebtorVC.swift */,
+			);
+			path = AddDebtor;
+			sourceTree = "<group>";
+		};
+		360DF4341FBDDFC500BC04B2 /* SelectDistricts */ = {
+			isa = PBXGroup;
+			children = (
+				360DF4371FBDE88000BC04B2 /* DistrictCell */,
+				360DF4351FBDDFDC00BC04B2 /* SelectDistrictsVC.swift */,
+			);
+			path = SelectDistricts;
+			sourceTree = "<group>";
+		};
+		360DF4371FBDE88000BC04B2 /* DistrictCell */ = {
+			isa = PBXGroup;
+			children = (
+				360DF4381FBDE8CA00BC04B2 /* DistrictCell.swift */,
+				360DF4391FBDE8CA00BC04B2 /* DistrictCell.xib */,
+			);
+			path = DistrictCell;
+			sourceTree = "<group>";
+		};
 		364AB9501FBC42610069898D /* Debts */ = {
 			isa = PBXGroup;
 			children = (
+				360DF4231FBD950D00BC04B2 /* AddDebtor */,
 				360512111FBCA8FC00BF3F07 /* DetailsDebtor */,
 				360511ED1FBC7D4B00BF3F07 /* DebtorCell */,
 				364AB9511FBC428D0069898D /* DebtsVC.swift */,
@@ -358,6 +394,7 @@
 				36EB186E1FBC3435002924D1 /* Assets.xcassets in Resources */,
 				36EB186F1FBC3435002924D1 /* LaunchScreen.storyboard in Resources */,
 				360511F11FBC7D6500BF3F07 /* DebtorCell.xib in Resources */,
+				360DF43B1FBDE8CA00BC04B2 /* DistrictCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				360DF4361FBDDFDC00BC04B2 /* SelectDistrictsVC.swift in Sources */,
 				360511F71FBC851400BF3F07 /* DebtServices.swift in Sources */,
 				360512041FBC866300BF3F07 /* Extensions+Date.swift in Sources */,
 				3605120A1FBC866300BF3F07 /* Extensions+UIImageView.swift in Sources */,
@@ -437,10 +475,12 @@
 				360511F51FBC82CA00BF3F07 /* DebtsRouter.swift in Sources */,
 				3605120E1FBC868000BF3F07 /* Helpers.swift in Sources */,
 				360512081FBC866300BF3F07 /* Extensions+String.swift in Sources */,
+				360DF4331FBDAA7E00BC04B2 /* AddDebtorVC.swift in Sources */,
 				360511F01FBC7D6500BF3F07 /* DebtorCell.swift in Sources */,
 				3605120C1FBC866300BF3F07 /* Extensions+UIViewController.swift in Sources */,
 				3605120B1FBC866300BF3F07 /* Extensions+UINavigationController.swift in Sources */,
 				360512191FBCA99C00BF3F07 /* DetailsDebtorCell.swift in Sources */,
+				360DF43A1FBDE8CA00BC04B2 /* DistrictCell.swift in Sources */,
 				360512131FBCA90C00BF3F07 /* DetailsDebtorVC.swift in Sources */,
 				360512051FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift in Sources */,
 				364AB9521FBC428D0069898D /* DebtsVC.swift in Sources */,
