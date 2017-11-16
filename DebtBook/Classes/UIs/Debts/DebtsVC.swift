@@ -82,6 +82,7 @@ class DebtsVC: UIViewController {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "AddDebtorVC") as? AddDebtorVC else {
             return
         }
+        vc.isEditDebtor = false
         navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func btnEditDebtorClicked(_ sender: Any) {
@@ -110,7 +111,6 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblAddress.text = ""
         }
         
-        
         return cell
     }
     
@@ -130,8 +130,25 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Xoá") { (rowAction, indexPath) in
+            self.loading.showLoadingDialog(self)
+            DebtServices.shared.deleteDebtor(with: self.debtors[indexPath.row].id, completionHandler: { (error) in
+                self.loading.stopAnimating()
+                if let error = error {
+                    self.showAlert(error, title: "Xoá thất bại", buttons: nil)
+                }
+            })
+        }
+        
+        let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal, title: "Sửa") { (rowAction, indexPath) in
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddDebtorVC") as? AddDebtorVC {
+                vc.title = "Sửa người nợ"
+                vc.isEditDebtor = true
+                vc.idDebtor = self.debtors[indexPath.row].id
+                vc.debtorEdit = self.debtors[indexPath.row]
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             
         }
-        return [deleteAction]
+        return [deleteAction, editAction]
     }
 }

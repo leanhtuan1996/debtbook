@@ -15,6 +15,12 @@ class AddDebtorVC: UITableViewController {
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var txtPhoneNumber: UITextField!
     @IBOutlet weak var txtName: UITextField!
+    
+    var isEditDebtor = false
+    var idDebtor: Int?
+    var debtorEdit: DebtorObject?
+    var loading = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +42,14 @@ class AddDebtorVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         let doneButton = UIBarButtonItem(title: "Xong", style: UIBarButtonItemStyle.done, target: self, action: #selector(done))
         self.navigationItem.setRightBarButton(doneButton, animated: true)
+        
+        if let debtor = self.debtorEdit {
+            self.txtName.text = debtor.name
+            self.txtPhoneNumber.text = debtor.phoneNumber
+            self.txtAddress.text = debtor.address
+            self.btnDistrict.setTitle(debtor.district, for: UIControlState.normal)
+            self.txtFirstDebit.text = debtor.firstDebit?.toString()
+        }
     }
 
     // MARK: - Table view data source
@@ -92,34 +106,55 @@ class AddDebtorVC: UITableViewController {
         }
         
         let debtorObject = DebtorObject()
+        
         debtorObject.name = fullName
         debtorObject.phoneNumber = phoneNumber
         debtorObject.address = address
         debtorObject.district = district
         debtorObject.firstDebit = debit.toInt()
         
-        DebtServices.shared.addDebtor(with: debtorObject) { (debtor, error) in
-            if let error = error {
-                self.showAlert(error, title: "Thêm người nợ không thành công", buttons: nil)
-            } else {
-                let backButton = UIAlertAction(title: "Trở về", style: UIAlertActionStyle.default, handler: { (alert) in
+        if self.isEditDebtor { //edit
+            
+            //for editing
+            guard let id = self.idDebtor else {
+                self.showAlert("Sửa thất bại", title: "Mã người nợ không được rỗng", buttons: nil)
+                return
+            }
+            
+            debtorObject.id = id
+            
+            loading.showLoadingDialog(self)
+            
+            DebtServices.shared.editDebtor(with: debtorObject, completionHandler: { (debtor, error) in
+                self.loading.stopAnimating()
+            })
+        } else {
+            //add
+            loading.showLoadingDialog(self)
+            DebtServices.shared.addDebtor(with: debtorObject) { (debtor, error) in
+                self.loading.stopAnimating()
+                if let error = error {
+                    self.showAlert(error, title: "Thêm người nợ không thành công", buttons: nil)
+                } else {
+                    let backButton = UIAlertAction(title: "Trở về", style: UIAlertActionStyle.default, handler: { (alert) in
+                        
+                        if let vc = self.navigationController?.viewControllers[0] as? DebtsVC {
+                            vc.loadDebtors()
+                        }
+                        
+                        self.navigationController?.popViewController(animated: true)
+                    })
                     
-                    if let vc = self.navigationController?.viewControllers[0] as? DebtsVC {
-                        vc.loadDebtors()
-                    }
+                    let continuesButton = UIAlertAction(title: "Thêm tiếp", style: UIAlertActionStyle.default, handler: { (alert) in
+                        self.txtName.becomeFirstResponder()
+                        self.txtName.text = ""
+                        self.txtPhoneNumber.text = ""
+                        self.txtAddress.text = ""
+                        self.btnDistrict.setTitle("Quận/Huyện", for: UIControlState.normal)
+                    })
                     
-                    self.navigationController?.popViewController(animated: true)
-                })
-                
-                let continuesButton = UIAlertAction(title: "Thêm tiếp", style: UIAlertActionStyle.default, handler: { (alert) in
-                    self.txtName.becomeFirstResponder()
-                    self.txtName.text = ""
-                    self.txtPhoneNumber.text = ""
-                    self.txtAddress.text = ""
-                    self.btnDistrict.setTitle("Quận/Huyện", for: UIControlState.normal)
-                })
-                
-                self.showAlert("Có muốn tiếp tục thêm người nợ không?", title: "Thêm nợ thành công", buttons: [backButton, continuesButton])
+                    self.showAlert("Có muốn tiếp tục thêm người nợ không?", title: "Thêm nợ thành công", buttons: [backButton, continuesButton])
+                }
             }
         }
     }

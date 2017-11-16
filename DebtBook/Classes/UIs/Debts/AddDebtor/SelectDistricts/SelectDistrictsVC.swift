@@ -42,7 +42,9 @@ extension SelectDistrictsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.viewControllers.forEach({ (vc) in
             if let addDebt = vc as? AddDebtorVC {
-                addDebt.btnDistrict.setTitle(self.district[indexPath.row], for: UIControlState.normal)
+                DispatchQueue.main.async {
+                    addDebt.btnDistrict.setTitle(self.district[indexPath.row], for: UIControlState.normal)
+                }
             }
         })
         
