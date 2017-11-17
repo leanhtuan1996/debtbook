@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -98,10 +99,10 @@
                             <tableViewSection headerTitle="Họ và Tên" id="EA4-E9-ZyW">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="MT6-28-xwr">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MT6-28-xwr" id="Xxr-js-nTQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="43.5" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Họ và tên người mượn" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lvl-im-eHC">
@@ -124,10 +125,10 @@
                             <tableViewSection headerTitle="Số điện thoại liên hệ" id="91q-Db-acp">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="uyQ-T8-sbC">
-                                        <rect key="frame" x="0.0" y="156.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="157" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uyQ-T8-sbC" id="uYG-vY-5c3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số điện thoại" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y0O-6G-1b8">
@@ -150,10 +151,10 @@
                             <tableViewSection headerTitle="Thông tin địa chỉ" id="ctv-YQ-pld">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="svG-v7-blJ">
-                                        <rect key="frame" x="0.0" y="257.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="258" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="svG-v7-blJ" id="Qjt-vV-MY5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Địa chỉ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mh0-bD-U4E">
@@ -172,10 +173,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="CFi-fU-iTn">
-                                        <rect key="frame" x="0.0" y="302.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="303" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CFi-fU-iTn" id="4cq-Cm-fFi">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvS-2s-7hu">
@@ -201,10 +202,10 @@
                             <tableViewSection headerTitle="Tiền nợ" id="28o-QH-IyU">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="m0H-tc-OTS">
-                                        <rect key="frame" x="0.0" y="403.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="404" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0H-tc-OTS" id="urV-N6-odW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số tiền nợ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aM1-m8-f3h">
@@ -300,12 +301,25 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scc-mh-fAd">
+                                        <rect key="frame" x="10" y="12" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="rRT-xo-KDy"/>
+                                            <constraint firstAttribute="width" constant="30" id="wid-gx-y5H"/>
+                                        </constraints>
+                                        <state key="normal" image="settings"/>
+                                        <connections>
+                                            <action selector="btnShowSettingsClicked:" destination="h3p-nH-vCm" eventType="touchUpInside" id="677-kb-hra"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="Scc-mh-fAd" firstAttribute="centerY" secondItem="cfW-kN-tu8" secondAttribute="centerY" id="9Oh-di-3MT"/>
                                     <constraint firstAttribute="height" constant="55" id="DOX-ed-unQ"/>
                                     <constraint firstItem="ups-SW-a7I" firstAttribute="centerX" secondItem="cfW-kN-tu8" secondAttribute="centerX" id="EPu-qJ-rnU"/>
                                     <constraint firstItem="ups-SW-a7I" firstAttribute="centerY" secondItem="cfW-kN-tu8" secondAttribute="centerY" id="aXI-zD-Hkq"/>
+                                    <constraint firstItem="Scc-mh-fAd" firstAttribute="leading" secondItem="cfW-kN-tu8" secondAttribute="leading" constant="10" id="yfG-8y-RLx"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -329,6 +343,113 @@
             </objects>
             <point key="canvasLocation" x="116" y="903"/>
         </scene>
+        <!--Add DetailVC-->
+        <scene sceneID="5cP-Mv-mxn">
+            <objects>
+                <viewController storyboardIdentifier="AddDetailVC" id="2j5-yg-zdA" customClass="AddDetailVC" customModule="DebtBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lNH-Bl-bbU"/>
+                        <viewControllerLayoutGuide type="bottom" id="mqo-o9-2Q1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5bF-dt-3a4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xor-PL-AjW">
+                                <rect key="frame" x="37.5" y="213.5" width="300" height="240"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9J-Yg-yh6">
+                                        <rect key="frame" x="265" y="5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="E3G-og-un5"/>
+                                            <constraint firstAttribute="width" constant="30" id="juG-ce-3DK"/>
+                                        </constraints>
+                                        <state key="normal" image="delete"/>
+                                        <connections>
+                                            <action selector="btnCancelClicked:" destination="2j5-yg-zdA" eventType="touchUpInside" id="BMW-rF-clL"/>
+                                        </connections>
+                                    </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pup-fX-pag">
+                                        <rect key="frame" x="30" y="45" width="240" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="3zR-5t-qpE"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Mượn nợ"/>
+                                            <segment title="Trả nợ"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-js-Xxi">
+                                        <rect key="frame" x="10" y="190" width="280" height="40"/>
+                                        <subviews>
+                                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5C-u2-1En">
+                                                <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
+                                                <state key="normal" title="Thêm ngay"/>
+                                                <connections>
+                                                    <action selector="btnDoneClicked:" destination="2j5-yg-zdA" eventType="touchUpInside" id="FLg-ZJ-aat"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lw9-qP-qGV">
+                                                <rect key="frame" x="140" y="0.0" width="140" height="40"/>
+                                                <state key="normal" title="Huỷ bỏ">
+                                                    <color key="titleColor" red="0.92549020049999997" green="0.23529411850000001" blue="0.1019607857" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnCancelClicked:" destination="2j5-yg-zdA" eventType="touchUpInside" id="e2B-FT-cYv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="C7A-gT-sXs"/>
+                                            <constraint firstItem="Y5C-u2-1En" firstAttribute="width" secondItem="KLI-js-Xxi" secondAttribute="width" multiplier="0.5" id="NaQ-Dd-fBM"/>
+                                            <constraint firstItem="Lw9-qP-qGV" firstAttribute="width" secondItem="Y5C-u2-1En" secondAttribute="width" id="qy9-Pc-nNL"/>
+                                        </constraints>
+                                    </stackView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Số tiền nợ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VfO-FH-7GB">
+                                        <rect key="frame" x="10" y="110" width="280" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="ySh-0V-aVX"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="pup-fX-pag" secondAttribute="trailing" constant="30" id="0so-YF-WS5"/>
+                                    <constraint firstItem="o9J-Yg-yh6" firstAttribute="top" secondItem="xor-PL-AjW" secondAttribute="top" constant="5" id="G0S-uE-koN"/>
+                                    <constraint firstItem="VfO-FH-7GB" firstAttribute="top" secondItem="pup-fX-pag" secondAttribute="bottom" constant="35" id="HZ7-9j-Xg5"/>
+                                    <constraint firstAttribute="trailing" secondItem="VfO-FH-7GB" secondAttribute="trailing" constant="10" id="HvN-HI-QIg"/>
+                                    <constraint firstItem="pup-fX-pag" firstAttribute="top" secondItem="o9J-Yg-yh6" secondAttribute="bottom" constant="10" id="IDb-Is-zkP"/>
+                                    <constraint firstItem="pup-fX-pag" firstAttribute="leading" secondItem="xor-PL-AjW" secondAttribute="leading" constant="30" id="OfI-nN-A6b"/>
+                                    <constraint firstAttribute="width" constant="300" id="URu-fs-tdM"/>
+                                    <constraint firstItem="VfO-FH-7GB" firstAttribute="leading" secondItem="xor-PL-AjW" secondAttribute="leading" constant="10" id="Vcc-zz-iGJ"/>
+                                    <constraint firstItem="KLI-js-Xxi" firstAttribute="trailing" secondItem="VfO-FH-7GB" secondAttribute="trailing" id="b8A-YG-Hoz"/>
+                                    <constraint firstItem="KLI-js-Xxi" firstAttribute="top" secondItem="VfO-FH-7GB" secondAttribute="bottom" constant="35" id="e9t-pk-4Kv"/>
+                                    <constraint firstItem="KLI-js-Xxi" firstAttribute="leading" secondItem="VfO-FH-7GB" secondAttribute="leading" id="frd-aj-5sC"/>
+                                    <constraint firstAttribute="height" constant="240" id="ikS-Cn-u61"/>
+                                    <constraint firstItem="pup-fX-pag" firstAttribute="centerX" secondItem="xor-PL-AjW" secondAttribute="centerX" id="qb8-6W-7k9"/>
+                                    <constraint firstAttribute="trailing" secondItem="o9J-Yg-yh6" secondAttribute="trailing" constant="5" id="vvb-gH-yev"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xor-PL-AjW" firstAttribute="centerY" secondItem="5bF-dt-3a4" secondAttribute="centerY" id="H1c-bS-uZl"/>
+                            <constraint firstItem="xor-PL-AjW" firstAttribute="centerX" secondItem="5bF-dt-3a4" secondAttribute="centerX" id="tL0-PG-CLR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="segSelectType" destination="pup-fX-pag" id="IDC-nD-Boj"/>
+                        <outlet property="txtDebit" destination="VfO-FH-7GB" id="SGw-aY-RsR"/>
+                        <outlet property="viewPopup" destination="xor-PL-AjW" id="Klp-DR-zOa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOb-PM-1vF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="870" y="903"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="UK8-Cn-N6d">
             <objects>
@@ -348,4 +469,8 @@
             <point key="canvasLocation" x="116" y="-560.86956521739137"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="delete" width="35" height="35"/>
+        <image name="settings" width="35" height="35"/>
+    </resources>
 </document>

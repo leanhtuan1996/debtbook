@@ -66,7 +66,7 @@ class DebtsVC: UIViewController {
                     self.lblTotals.text = "Tổng số tiền nợ: \(totalDepts.toString())"
                     
                 } else {
-                   self.showAlert("Debtors not found", title: "Oops", buttons: nil)
+                   self.showAlert("Người nợ không tìm thấy", title: "Oops", buttons: nil)
                 }
             }
         }

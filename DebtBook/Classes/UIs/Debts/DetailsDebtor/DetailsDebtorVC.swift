@@ -30,7 +30,17 @@ class DetailsDebtorVC: UIViewController {
         self.tblDetailDebtors.estimatedRowHeight = 70
         self.tblDetailDebtors.register(UINib(nibName: "DetailsDebtorCell", bundle: nil), forCellReuseIdentifier: "DetailsDebtorCell")
         self.tblDetailDebtors.refreshControl = self.refresh
-        
+    }
+    
+    override func didMove(toParentViewController parent: UIViewController?) {
+        if parent is AddDetailVC {
+            self.loadDetailDebtor()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let addDetailItem = UIBarButtonItem(title: "Thêm mới", style: UIBarButtonItemStyle.done, target: self, action: #selector(addDetail))
+        self.navigationItem.setRightBarButton(addDetailItem, animated: true)
         self.loadDetailDebtor()
     }
     
@@ -79,6 +89,30 @@ class DetailsDebtorVC: UIViewController {
         self.refresh.beginRefreshing()
         self.loadDetailDebtor()
     }
+    @IBAction func btnShowSettingsClicked(_ sender: Any) {
+        let btnPayAllDebt = UIAlertAction(title: "Thanh toán toàn bộ số nợ", style: UIAlertActionStyle.default) { (action) in
+            
+        }
+        
+        let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.cancel, handler: nil)
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        alert.addAction(btnPayAllDebt)
+        alert.addAction(btnCancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func addDetail() {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "AddDetailVC") as? AddDetailVC else {
+            return
+        }
+        vc.idDebtor = self.debtor?.id
+        self.addChildViewController(vc)
+        vc.view.frame = self.view.frame
+        self.view.addSubview(vc.view)
+        self.didMove(toParentViewController: self)
+    }
 
 }
 
@@ -116,5 +150,40 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (debtor?.detail?.count ?? 0) + 1
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 0 { return }
+        
+        guard let debtor = self.debtor, let details = debtor.detail else {
+            return
+        }
+        
+        guard let debt = details[indexPath.row - 1].debt, debt > 0 else {
+            return
+        }
+        
+        let btnPayThisDebt = UIAlertAction(title: "Thanh toán khoãng nợ này", style: UIAlertActionStyle.default) { (action) in
+            
+        }
+        
+        let btnEditThisDebt = UIAlertAction(title: "Chỉnh sửa khoãng nợ này", style: UIAlertActionStyle.default) { (action) in
+            
+        }
+        
+        let btnDeleteThisDebt = UIAlertAction(title: "Xoá khoãng nợ này", style: UIAlertActionStyle.destructive) { (action) in
+            
+        }
+        
+        let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.cancel, handler: nil)
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        alert.addAction(btnPayThisDebt)
+        alert.addAction(btnEditThisDebt)
+        alert.addAction(btnCancel)
+        alert.addAction(btnDeleteThisDebt)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
