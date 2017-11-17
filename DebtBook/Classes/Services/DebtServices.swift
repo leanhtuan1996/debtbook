@@ -144,6 +144,8 @@ class DebtServices: NSObject {
             return completionHandler(nil, "Convert object to json has been failed")
         }
         
+        print(json)
+        
         Alamofire.request(DebtsRouter.editDebt(json))
             .validate()
             .response { (dataRespone) in

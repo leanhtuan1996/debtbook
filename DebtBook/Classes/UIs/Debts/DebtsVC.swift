@@ -92,6 +92,7 @@ class DebtsVC: UIViewController {
             return
         }
         vc.isEditDebtor = false
+        vc.title = "Thêm người nợ"
         self.txtSearchDebtor.resignFirstResponder()
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -30,8 +30,6 @@ class AddDebtorVC: UITableViewController {
         self.txtPhoneNumber.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         self.txtFirstDebit.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         
-        self.title = "Thêm nợ"
-        
         txtName.becomeFirstResponder()
         
         self.automaticallyAdjustsScrollViewInsets = true
@@ -126,6 +124,10 @@ class AddDebtorVC: UITableViewController {
             
             DebtServices.shared.editDebtor(with: debtorObject, completionHandler: { (debtor, error) in
                 self.loading.stopAnimating()
+                if let error = error {
+                    self.showAlert(error, title: "Sửa thất bại", buttons: nil)
+                }
+                self.navigationController?.popViewController(animated: true)
             })
             
             
