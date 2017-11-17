@@ -222,8 +222,33 @@ class DebtServices: NSObject {
         }
     }
     
-    func deleteDetail(completionHandler: @escaping (_ error: String?) -> Void) {
+    func deleteDetail(withId id: Int, completionHandler: @escaping (_ error: String?) -> Void) {
+        let parameter: [String: Any] = [
+            "detailId": id
+        ]
         
+        Alamofire.request(DebtsRouter.deleteDetailDebt(parameter))
+        .validate()
+        .response { (dataRespone) in
+            if let error = dataRespone.error {
+                return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
+            }
+            
+            guard let data = dataRespone.data else {
+                return completionHandler("Data respone not found")
+            }
+            
+            if data.isEmpty { return completionHandler(nil) }
+            
+            //error handler
+            guard let errorJson = data.toDictionary() else {
+                return completionHandler("Convert error data to json has been failed")
+            }
+            
+            if let stackError = errorJson["stackError"] as? String {
+                return completionHandler(stackError)
+            }
+        }
     }
     
     

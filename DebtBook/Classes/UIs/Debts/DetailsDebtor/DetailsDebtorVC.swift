@@ -19,6 +19,7 @@ class DetailsDebtorVC: UIViewController {
     var checkBorrow = 1
     var checkPayment = 0
     var refresh = UIRefreshControl()
+    var totalDebt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,15 +69,15 @@ class DetailsDebtorVC: UIViewController {
                 self.navigationItem.title = self.debtor?.name ?? ""
                 self.tblDetailDebtors.reloadData()
                 
-                var total = debtor?.firstDebit ?? 0
+                self.totalDebt = debtor?.firstDebit ?? 0
                 
                 if let details = debtor?.detail {
                     details.forEach({ (detail) in
-                        total += detail.debt ?? 0
+                        self.totalDebt += detail.debt ?? 0
                     })
                 }
                 
-                self.lblTotalDebts.text = "Tổng số tiền nợ: \(total.toString())"
+                self.lblTotalDebts.text = "Tổng số tiền nợ: \(self.totalDebt.toString())"
                 
                 self.checkBorrow = 1
                 self.checkPayment = 0
@@ -185,5 +186,32 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
         alert.addAction(btnDeleteThisDebt)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Xoá") { (rowAction, indexPath) in
+            if indexPath.row == 0 { return }
+            
+            guard let idDetail = self.debtor?.detail?[indexPath.row - 1].id else {
+                return
+            }
+            
+            self.loading.showLoadingDialog(self)
+            
+            DebtServices.shared.deleteDetail(withId: idDetail, completionHandler: { (error) in
+                self.loading.stopAnimating()
+                if let error = error {
+                    self.showAlert(error, title: "Đã xảy ra lỗi trong quá trình xoá", buttons: nil)
+                } else {
+                    DispatchQueue.main.async {
+                        self.debtor?.detail?.remove(at: indexPath.row - 1)
+                        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                        self.totalDebt -= self.debtor?.detail?[indexPath.row - 1].debt ?? 0
+                    }
+                }
+            })
+        }
+        return [deleteAction]
     }
 }

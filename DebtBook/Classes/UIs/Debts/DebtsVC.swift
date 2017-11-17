@@ -33,6 +33,13 @@ class DebtsVC: UIViewController {
         
         self.navigationController?.navigationItem.leftBarButtonItem?.title = "Chỉnh sửa"
         
+        let editButton = UIBarButtonItem(title: "Sửa", style: UIBarButtonItemStyle.done, target: self, action: #selector(editDebtorClicked))
+        self.navigationItem.setLeftBarButton(editButton, animated: true)
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         //loading debtors
         loadDebtors()
     }
@@ -85,12 +92,14 @@ class DebtsVC: UIViewController {
         vc.isEditDebtor = false
         navigationController?.pushViewController(vc, animated: true)
     }
-    @IBAction func btnEditDebtorClicked(_ sender: Any) {
+    func editDebtorClicked() {
         if self.tblDebtors.isEditing {
             self.tblDebtors.setEditing(false, animated: true)
+            self.navigationItem.leftBarButtonItem?.title = "Sửa"
             
         } else {
             self.tblDebtors.setEditing(true, animated: true)
+            self.navigationItem.leftBarButtonItem?.title = "Xong"
         }
     }
 }

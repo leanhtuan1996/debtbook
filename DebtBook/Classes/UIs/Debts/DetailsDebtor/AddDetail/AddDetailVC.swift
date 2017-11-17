@@ -51,7 +51,7 @@ class AddDetailVC: UIViewController {
     {
         self.view.backgroundColor = UIColor.clear.withAlphaComponent(0)
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.view.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+            self.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }) { (finished) in
             if finished
             {
