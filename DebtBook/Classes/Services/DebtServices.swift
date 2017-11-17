@@ -57,31 +57,31 @@ class DebtServices: NSObject {
         ]
         
         Alamofire.request(DebtsRouter.getDebt(parameter))
-        .validate()
-        .response { (dataRespone) in
-            if let error = dataRespone.error {
-                return completionHandler(nil, Helpers.handleError(dataRespone.response, error: error as NSError))
-            }
-            
-            guard let data = dataRespone.data else {
-                return completionHandler(nil, "Data respone not found")
-            }
-            
-            guard let dataJson = data.toDictionary() else {
-                return completionHandler(nil, "Convert data to json has been failed")
-            }
-            
-            guard let debtorJson = dataJson["debtorInfo"] as? JSON, let detailDebtorJson = dataJson["details"] as? [JSON] else {
-                return completionHandler(nil, "Data debtor not found")
-            }
-            
-            guard let debtorObject = DebtorObject(json: debtorJson), let detailDebtor = [DetailDebtorObject].from(jsonArray: detailDebtorJson) else {
-                return completionHandler(nil, "Convert data json to Object has been failed")
-            }
-            
-            debtorObject.detail = detailDebtor
-            
-            return completionHandler(debtorObject, nil)
+            .validate()
+            .response { (dataRespone) in
+                if let error = dataRespone.error {
+                    return completionHandler(nil, Helpers.handleError(dataRespone.response, error: error as NSError))
+                }
+                
+                guard let data = dataRespone.data else {
+                    return completionHandler(nil, "Data respone not found")
+                }
+                
+                guard let dataJson = data.toDictionary() else {
+                    return completionHandler(nil, "Convert data to json has been failed")
+                }
+                
+                guard let debtorJson = dataJson["debtorInfo"] as? JSON, let detailDebtorJson = dataJson["details"] as? [JSON] else {
+                    return completionHandler(nil, "Data debtor not found")
+                }
+                
+                guard let debtorObject = DebtorObject(json: debtorJson), let detailDebtor = [DetailDebtorObject].from(jsonArray: detailDebtorJson) else {
+                    return completionHandler(nil, "Convert data json to Object has been failed")
+                }
+                
+                debtorObject.detail = detailDebtor
+                
+                return completionHandler(debtorObject, nil)
         }
     }
     
@@ -144,9 +144,10 @@ class DebtServices: NSObject {
             return completionHandler(nil, "Convert object to json has been failed")
         }
         
-        Alamofire.request(DebtsRouter.addDebt(json))
+        Alamofire.request(DebtsRouter.editDebt(json))
             .validate()
             .response { (dataRespone) in
+                
                 if let error = dataRespone.error {
                     return completionHandler(nil, Helpers.handleError(dataRespone.response, error: error as NSError))
                 }
@@ -155,17 +156,26 @@ class DebtServices: NSObject {
                     return completionHandler(nil, "Data respone not found")
                 }
                 
-                guard let json = data.toDictionary() else {
+                guard let dataJson = data.toDictionary() else {
                     return completionHandler(nil, "Convert data to json has been failed")
                 }
                 
-                guard let debtor = DebtorObject(json: json) else {
+                if let errors = dataJson["errors"] as? [String] {
+                    if errors.count > 0 {
+                        return completionHandler(nil, errors[0])
+                    }
+                }
+                
+                if dataRespone.response?.statusCode == 500 {
+                    return completionHandler(nil, "Cập nhật thông tin thất bại")
+                }
+                
+                guard let debtor = DebtorObject(data: data) else {
                     return completionHandler(nil, "Convert json to object has been failed")
                 }
                 
                 return completionHandler(debtor, nil)
         }
-        
     }
     
     func deleteDebtor(with id: Int, completionHandler: @escaping (_ error: String?) -> Void) {
@@ -184,7 +194,20 @@ class DebtServices: NSObject {
                     return completionHandler("Data respone not found")
                 }
                 
-                print(data)
+                if data.isEmpty { return completionHandler(nil) }
+                
+                //error handler
+                guard let errorJson = data.toDictionary() else {
+                    return completionHandler("Convert error data to json has been failed")
+                }
+                
+                if let stackError = errorJson["stackError"] as? String {
+                    return completionHandler(stackError)
+                }
+                
+                if dataRespone.response?.statusCode == 500 {
+                    return completionHandler("Xoá người nợ thất bại")
+                }
         }
     }
     
@@ -204,21 +227,21 @@ class DebtServices: NSObject {
         ]
         
         Alamofire.request(DebtsRouter.addDetailDebt(parameters))
-        .validate()
-        .response { (dataRespone) in
-            if let error = dataRespone.error {
-                return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
-            }
-            
-            guard let data = dataRespone.data else {
-                return completionHandler("Data respone not found")
-            }
-            
-            guard let debtor = DebtorObject(data: data) else {
-                return completionHandler("Convert data to object has been failed")
-            }
-            
-            return completionHandler(nil)
+            .validate()
+            .response { (dataRespone) in
+                if let error = dataRespone.error {
+                    return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
+                }
+                
+                guard let data = dataRespone.data else {
+                    return completionHandler("Data respone not found")
+                }
+                
+                if dataRespone.response?.statusCode == 500 {
+                    return completionHandler("Thêm thất bại")
+                }
+                
+                return completionHandler(nil)
         }
     }
     
@@ -228,26 +251,26 @@ class DebtServices: NSObject {
         ]
         
         Alamofire.request(DebtsRouter.deleteDetailDebt(parameter))
-        .validate()
-        .response { (dataRespone) in
-            if let error = dataRespone.error {
-                return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
-            }
-            
-            guard let data = dataRespone.data else {
-                return completionHandler("Data respone not found")
-            }
-            
-            if data.isEmpty { return completionHandler(nil) }
-            
-            //error handler
-            guard let errorJson = data.toDictionary() else {
-                return completionHandler("Convert error data to json has been failed")
-            }
-            
-            if let stackError = errorJson["stackError"] as? String {
-                return completionHandler(stackError)
-            }
+            .validate()
+            .response { (dataRespone) in
+                if let error = dataRespone.error {
+                    return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
+                }
+                
+                guard let data = dataRespone.data else {
+                    return completionHandler("Data respone not found")
+                }
+                
+                if data.isEmpty { return completionHandler(nil) }
+                
+                //error handler
+                guard let errorJson = data.toDictionary() else {
+                    return completionHandler("Convert error data to json has been failed")
+                }
+                
+                if let stackError = errorJson["stackError"] as? String {
+                    return completionHandler(stackError)
+                }
         }
     }
     

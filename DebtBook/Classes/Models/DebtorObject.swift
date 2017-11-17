@@ -34,8 +34,6 @@ class DebtorObject: NSObject, Glossy {
             return nil
         }
         
-        print(json)
-        
         self.id = id
         self.name = "name" <~~ json
         self.phoneNumber = "phonenumber" <~~ json

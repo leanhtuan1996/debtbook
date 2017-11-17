@@ -9,12 +9,13 @@
 import UIKit
 
 class DebtsVC: UIViewController {
-
+    
     @IBOutlet weak var txtSearchDebtor: UISearchBar!
     @IBOutlet weak var tblDebtors: UITableView!
     @IBOutlet weak var lblTotals: UILabel!
     
     var debtors: [DebtorObject] = []
+    var debtorsFilter: [DebtorObject] = []
     var loading = UIActivityIndicatorView()
     
     var refreshCtrl = UIRefreshControl()
@@ -31,19 +32,19 @@ class DebtsVC: UIViewController {
         tblDebtors.refreshControl = refreshCtrl
         tblDebtors.estimatedRowHeight = 80
         
+        txtSearchDebtor.delegate = self
+        
         self.navigationController?.navigationItem.leftBarButtonItem?.title = "Chỉnh sửa"
         
         let editButton = UIBarButtonItem(title: "Sửa", style: UIBarButtonItemStyle.done, target: self, action: #selector(editDebtorClicked))
         self.navigationItem.setLeftBarButton(editButton, animated: true)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //loading debtors
         loadDebtors()
     }
-
+    
     
     func loadDebtors() {
         
@@ -63,6 +64,7 @@ class DebtsVC: UIViewController {
             } else {
                 if let debtors = debtors {
                     self.debtors = debtors
+                    self.debtorsFilter = debtors
                     self.tblDebtors.reloadData()
                     
                     var totalDepts = 0
@@ -73,7 +75,7 @@ class DebtsVC: UIViewController {
                     self.lblTotals.text = "Tổng số tiền nợ: \(totalDepts.toString())"
                     
                 } else {
-                   self.showAlert("Người nợ không tìm thấy", title: "Oops", buttons: nil)
+                    self.showAlert("Người nợ không tìm thấy", title: "Oops", buttons: nil)
                 }
             }
         }
@@ -90,9 +92,11 @@ class DebtsVC: UIViewController {
             return
         }
         vc.isEditDebtor = false
+        self.txtSearchDebtor.resignFirstResponder()
         navigationController?.pushViewController(vc, animated: true)
     }
     func editDebtorClicked() {
+        self.txtSearchDebtor.resignFirstResponder()
         if self.tblDebtors.isEditing {
             self.tblDebtors.setEditing(false, animated: true)
             self.navigationItem.leftBarButtonItem?.title = "Sửa"
@@ -104,17 +108,17 @@ class DebtsVC: UIViewController {
     }
 }
 
-extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
+extension DebtsVC: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebtorCell", for: indexPath) as? DebtorCell else {
             return UITableViewCell()
         }
         
-        cell.lblFullName.text = "\(self.debtors[indexPath.row].name ?? "Lê Anh Tuấn")"
-        cell.lblDebit.text = "\(self.debtors[indexPath.row].totalDebit ?? 0) VNĐ"
-        cell.lblPhoneNumber.text = self.debtors[indexPath.row].phoneNumber ?? ""
+        cell.lblFullName.text = "\(self.debtorsFilter[indexPath.row].name ?? "Lê Anh Tuấn")"
+        cell.lblDebit.text = "\(self.debtorsFilter[indexPath.row].totalDebit ?? 0) VNĐ"
+        cell.lblPhoneNumber.text = self.debtorsFilter[indexPath.row].phoneNumber ?? ""
         
-        if let address = self.debtors[indexPath.row].address, let district = self.debtors[indexPath.row].district {
+        if let address = self.debtorsFilter[indexPath.row].address, let district = self.debtorsFilter[indexPath.row].district {
             cell.lblAddress.text = "\(address), \(district)"
         } else {
             cell.lblAddress.text = ""
@@ -124,7 +128,7 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return debtors.count
+        return debtorsFilter.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -132,15 +136,15 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
             return
         }
         
-        vc.idDebtor = self.debtors[indexPath.row].id
-                
+        vc.idDebtor = self.debtorsFilter[indexPath.row].id
+        self.txtSearchDebtor.resignFirstResponder()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Xoá") { (rowAction, indexPath) in
             self.loading.showLoadingDialog(self)
-            DebtServices.shared.deleteDebtor(with: self.debtors[indexPath.row].id, completionHandler: { (error) in
+            DebtServices.shared.deleteDebtor(with: self.debtorsFilter[indexPath.row].id, completionHandler: { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Xoá thất bại", buttons: nil)
@@ -152,12 +156,21 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddDebtorVC") as? AddDebtorVC {
                 vc.title = "Sửa người nợ"
                 vc.isEditDebtor = true
-                vc.idDebtor = self.debtors[indexPath.row].id
-                vc.debtorEdit = self.debtors[indexPath.row]
+                vc.idDebtor = self.debtorsFilter[indexPath.row].id
+                vc.debtorEdit = self.debtorsFilter[indexPath.row]
                 self.navigationController?.pushViewController(vc, animated: true)
             }
-            
         }
         return [deleteAction, editAction]
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let deb =  self.debtors.filter({ (debtor) -> Bool in
+            return debtor.name?.lowercased().range(of: searchText.lowercased()) != nil
+        })
+        
+        self.debtorsFilter = searchText.isEmpty ? self.debtors : deb
+        self.tblDebtors.reloadData()
     }
 }

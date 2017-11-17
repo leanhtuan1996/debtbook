@@ -100,6 +100,8 @@ class AddDetailVC: UIViewController {
             }
         }
         
+        if debit == 0 { self.showAlert("Nhập số khác 0", title: "Lỗi", buttons: nil); return}
+        
         DebtServices.shared.addDetail(with: id, debts: debit) { (error) in
             if let error = error {
                 self.showAlert(error, title: "Thêm thất bại", buttons: nil)
@@ -121,7 +123,4 @@ extension AddDetailVC: UITextFieldDelegate {
         }
         return true
     }
-    
-    
-    
 }

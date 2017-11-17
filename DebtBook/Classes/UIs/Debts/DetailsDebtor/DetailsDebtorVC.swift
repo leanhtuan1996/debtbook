@@ -92,7 +92,24 @@ class DetailsDebtorVC: UIViewController {
     }
     @IBAction func btnShowSettingsClicked(_ sender: Any) {
         let btnPayAllDebt = UIAlertAction(title: "Thanh toán toàn bộ số nợ", style: UIAlertActionStyle.default) { (action) in
+            if self.totalDebt == 0 {
+                return
+            }
             
+            guard let id = self.idDebtor else {
+                return
+            }
+            
+            self.loading.showLoadingDialog(self)
+            
+            DebtServices.shared.addDetail(with: id, debts: self.totalDebt * (-1), completionHandler: { (error) in
+                self.loading.stopAnimating()
+                if let error = error {
+                    self.showAlert(error, title: "Thanh toán thất bại", buttons: nil)
+                    return
+                }
+                self.loadDetailDebtor()
+            })
         }
         
         let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.cancel, handler: nil)
@@ -114,7 +131,12 @@ class DetailsDebtorVC: UIViewController {
         self.view.addSubview(vc.view)
         self.didMove(toParentViewController: self)
     }
-
+    
+    func deleteDetail(idDetail: Int, comletionHandler: @escaping(_ error: String?) -> Void) {
+        DebtServices.shared.deleteDetail(withId: idDetail, completionHandler: { (error) in
+            return comletionHandler(error)
+        })
+    }
 }
 
 extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
@@ -155,18 +177,33 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == 0 { return }
-        
-        guard let debtor = self.debtor, let details = debtor.detail else {
-            return
-        }
-        
-        guard let debt = details[indexPath.row - 1].debt, debt > 0 else {
+        guard let debtor = self.debtor else {
             return
         }
         
         let btnPayThisDebt = UIAlertAction(title: "Thanh toán khoãng nợ này", style: UIAlertActionStyle.default) { (action) in
             
+            var debit = 0
+            
+            if indexPath.row == 0 {
+                debit = debtor.firstDebit ?? 0
+            } else {
+                debit = debtor.detail?[indexPath.row - 1].debt ?? 0
+            }
+            
+            if debit == 0 { return }
+            
+            debit *= (-1)
+            
+            self.loading.showLoadingDialog(self)
+            DebtServices.shared.addDetail(with: debtor.id, debts: debit, completionHandler: { (error) in
+                self.loading.stopAnimating()
+                if let error = error {
+                    self.showAlert(error, title: "Thanh toán thất bại", buttons: nil)
+                }
+                self.loadDetailDebtor()
+                self.dismiss(animated: true, completion: nil)
+            })
         }
         
         let btnEditThisDebt = UIAlertAction(title: "Chỉnh sửa khoãng nợ này", style: UIAlertActionStyle.default) { (action) in
@@ -175,15 +212,39 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
         
         let btnDeleteThisDebt = UIAlertAction(title: "Xoá khoãng nợ này", style: UIAlertActionStyle.destructive) { (action) in
             
+            guard let id = self.debtor?.detail?[indexPath.row - 1].id else {
+                return
+            }
+            
+            self.loading.showLoadingDialog(self)
+            self.deleteDetail(idDetail: id, comletionHandler: { (error) in
+                self.loading.stopAnimating()
+                if let error = error {
+                    self.showAlert(error, title: "Xoá không thành công", buttons: nil)
+                    return
+                }
+                self.loadDetailDebtor()
+                self.dismiss(animated: true, completion: nil)
+            })
         }
         
         let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.cancel, handler: nil)
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         alert.addAction(btnPayThisDebt)
-        alert.addAction(btnEditThisDebt)
         alert.addAction(btnCancel)
-        alert.addAction(btnDeleteThisDebt)
+        
+        var debt = 0
+        
+        if indexPath.row == 0 {
+            debt = self.debtor?.firstDebit ?? 0
+        } else {
+            alert.addAction(btnEditThisDebt)
+            alert.addAction(btnDeleteThisDebt)
+            debt = debtor.detail?[indexPath.row - 1].debt ?? 0
+        }
+        
+        if debt == 0 { return }
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -198,16 +259,15 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             self.loading.showLoadingDialog(self)
-            
-            DebtServices.shared.deleteDetail(withId: idDetail, completionHandler: { (error) in
+            self.deleteDetail(idDetail: idDetail, comletionHandler: { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Đã xảy ra lỗi trong quá trình xoá", buttons: nil)
                 } else {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async {                        
+                        self.totalDebt -= self.debtor?.detail?[indexPath.row - 1].debt ?? 0
                         self.debtor?.detail?.remove(at: indexPath.row - 1)
                         tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-                        self.totalDebt -= self.debtor?.detail?[indexPath.row - 1].debt ?? 0
                     }
                 }
             })
