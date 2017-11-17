@@ -149,6 +149,10 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource, UISearchBarDelega
                 if let error = error {
                     self.showAlert(error, title: "Xoá thất bại", buttons: nil)
                 }
+                
+                self.debtorsFilter.remove(at: indexPath.row)
+                self.debtors.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
             })
         }
         

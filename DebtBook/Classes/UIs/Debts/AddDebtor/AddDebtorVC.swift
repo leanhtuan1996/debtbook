@@ -33,6 +33,9 @@ class AddDebtorVC: UITableViewController {
         self.title = "Thêm nợ"
         
         txtName.becomeFirstResponder()
+        
+        self.automaticallyAdjustsScrollViewInsets = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,7 +116,7 @@ class AddDebtorVC: UITableViewController {
             
             //for editing
             guard let id = self.idDebtor else {
-                self.showAlert("Sửa thất bại", title: "Mã người nợ không được rỗng", buttons: nil)
+                self.showAlert("Mã người nợ không được rỗng", title: "Sửa thất bại", buttons: nil)
                 return
             }
             
