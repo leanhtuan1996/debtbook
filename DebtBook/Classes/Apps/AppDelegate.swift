@@ -7,15 +7,31 @@
 //
 
 import UIKit
+import Firebase
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    override init() {
+        //listen to networking
+        InternetManager.shared.listen()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        FirebaseApp.configure()
+        
+        //enable offline database
+        Firestore.firestore().settings.isPersistenceEnabled = true
+        
+        //checking network
+        
+        
+        
         return true
     }
 
@@ -36,11 +52,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // Saves changes in the application's managed object context before the application terminates.
+        
     }
-
-
+    
+    func showMainView() {
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "navi") as? UINavigationController else {
+            return
+        }
+        
+        self.window?.rootViewController = vc
+    }
+    
+    func showSignInView() {
+        self.window?.rootViewController = SignInVC()
+        self.window?.makeKeyAndVisible()
+    }
+    
+    func showSignUpView() {
+        self.window?.rootViewController = SignUpVC()
+        self.window?.makeKeyAndVisible()
+    }
 }
 

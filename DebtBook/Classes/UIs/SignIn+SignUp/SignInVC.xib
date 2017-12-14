@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17B1003" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-Regular.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignInVC" customModule="DebtBook" customModuleProvider="target">
+            <connections>
+                <outlet property="btnLogin" destination="sOp-S2-0qd" id="Ty1-wz-Dr9"/>
+                <outlet property="btnSignUp" destination="DUO-IJ-ISa" id="UqA-fH-dIE"/>
+                <outlet property="txtEmail" destination="oJg-3k-uhX" id="65t-3V-qO6"/>
+                <outlet property="txtPassword" destination="PrE-aD-wGv" id="Xi5-j1-uCg"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewSignUp" destination="1an-R5-hI8" id="G7e-vx-4P3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="gil-bu-Wmt">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-K1-0aX">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35L-8d-Qo3" userLabel="content view">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="668"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ĐĂNG NHẬP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27f-Rb-ihz">
+                                    <rect key="frame" x="129" y="60" width="117.5" height="23.5"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oJg-3k-uhX" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                    <rect key="frame" x="20" y="113.5" width="335" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="gvJ-Ge-15d"/>
+                                    </constraints>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="light"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Email"/>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </textField>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PrE-aD-wGv" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                    <rect key="frame" x="20" y="198" width="335" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="UHL-ye-Ojq"/>
+                                    </constraints>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Mật khẩu"/>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </textField>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOp-S2-0qd">
+                                    <rect key="frame" x="20" y="288" width="335" height="50"/>
+                                    <color key="backgroundColor" red="0.9619782567024231" green="0.74279117584228516" blue="0.11036577075719833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="CRk-LB-v6v"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                    <state key="normal" title="Đăng nhập">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnSignInClicked:" destination="-1" eventType="touchUpInside" id="xrb-ox-Co0"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZF-MS-2PV">
+                                    <rect key="frame" x="20" y="423" width="335" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="Okv-Lg-kar"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                    <state key="normal" title="Dùng thử ngay">
+                                        <color key="titleColor" red="0.9619782567024231" green="0.74279117584228516" blue="0.11036577075719833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnSignInAsGuestClicked:" destination="-1" eventType="touchUpInside" id="EKc-oM-dd1"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="as6-zl-DId">
+                                    <rect key="frame" x="61.5" y="368" width="253" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="eTN-1Y-oSn"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
+                                    <state key="normal" title="Hoặc dùng thử không cần đăng nhập">
+                                        <color key="titleColor" red="0.99991601705551147" green="1" blue="0.99987190961837769" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="PrE-aD-wGv" firstAttribute="trailing" secondItem="oJg-3k-uhX" secondAttribute="trailing" id="4nT-74-qA7"/>
+                                <constraint firstItem="PrE-aD-wGv" firstAttribute="top" secondItem="oJg-3k-uhX" secondAttribute="bottom" constant="35" id="BF7-d5-ngN"/>
+                                <constraint firstItem="sOp-S2-0qd" firstAttribute="trailing" secondItem="PrE-aD-wGv" secondAttribute="trailing" id="NFu-z0-FQ4"/>
+                                <constraint firstItem="oJg-3k-uhX" firstAttribute="top" secondItem="27f-Rb-ihz" secondAttribute="bottom" constant="30" id="QmZ-qI-chv"/>
+                                <constraint firstItem="27f-Rb-ihz" firstAttribute="centerX" secondItem="35L-8d-Qo3" secondAttribute="centerX" id="S3R-0a-jkJ"/>
+                                <constraint firstItem="sOp-S2-0qd" firstAttribute="top" secondItem="PrE-aD-wGv" secondAttribute="bottom" constant="40" id="bBJ-3e-FGq"/>
+                                <constraint firstItem="uZF-MS-2PV" firstAttribute="leading" secondItem="sOp-S2-0qd" secondAttribute="leading" id="dXz-Gi-IVK"/>
+                                <constraint firstItem="uZF-MS-2PV" firstAttribute="top" secondItem="as6-zl-DId" secondAttribute="bottom" constant="25" id="f63-VK-xYy"/>
+                                <constraint firstItem="as6-zl-DId" firstAttribute="centerX" secondItem="35L-8d-Qo3" secondAttribute="centerX" id="grZ-at-MWx"/>
+                                <constraint firstItem="27f-Rb-ihz" firstAttribute="top" secondItem="35L-8d-Qo3" secondAttribute="top" constant="60" id="jS3-il-AQm"/>
+                                <constraint firstAttribute="bottom" secondItem="uZF-MS-2PV" secondAttribute="bottom" constant="195" id="mCP-PB-Z2z"/>
+                                <constraint firstItem="oJg-3k-uhX" firstAttribute="leading" secondItem="35L-8d-Qo3" secondAttribute="leading" constant="20" id="pVc-ki-Hbp"/>
+                                <constraint firstItem="as6-zl-DId" firstAttribute="top" secondItem="sOp-S2-0qd" secondAttribute="bottom" constant="30" id="sf3-RN-dD2"/>
+                                <constraint firstItem="sOp-S2-0qd" firstAttribute="leading" secondItem="PrE-aD-wGv" secondAttribute="leading" id="vDn-VH-8Ak"/>
+                                <constraint firstItem="PrE-aD-wGv" firstAttribute="leading" secondItem="oJg-3k-uhX" secondAttribute="leading" id="vvx-Jy-CEk"/>
+                                <constraint firstItem="uZF-MS-2PV" firstAttribute="trailing" secondItem="sOp-S2-0qd" secondAttribute="trailing" id="zGg-kC-Swc"/>
+                                <constraint firstAttribute="trailing" secondItem="oJg-3k-uhX" secondAttribute="trailing" constant="20" id="zmm-NQ-2zW"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="35L-8d-Qo3" secondAttribute="trailing" id="C4w-J0-SBY"/>
+                        <constraint firstItem="35L-8d-Qo3" firstAttribute="leading" secondItem="M0B-K1-0aX" secondAttribute="leading" id="E2k-kK-9QG"/>
+                        <constraint firstAttribute="bottom" secondItem="35L-8d-Qo3" secondAttribute="bottom" id="M8i-XU-SEi"/>
+                        <constraint firstItem="35L-8d-Qo3" firstAttribute="top" secondItem="M0B-K1-0aX" secondAttribute="top" id="PWg-Qu-of8"/>
+                    </constraints>
+                </scrollView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1an-R5-hI8">
+                    <rect key="frame" x="0.0" y="597" width="375" height="70"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nếu chưa có tài khoản?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pkj-NE-9DW">
+                            <rect key="frame" x="20" y="25.5" width="172.5" height="19"/>
+                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUO-IJ-ISa">
+                            <rect key="frame" x="250" y="5" width="120" height="60"/>
+                            <color key="backgroundColor" red="0.9619782567024231" green="0.74279117584228516" blue="0.11036577075719833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="120" id="HPv-KQ-LL4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="18"/>
+                            <state key="normal" title="Đăng kí ngay">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnSignUpClicked:" destination="-1" eventType="touchUpInside" id="yey-TT-tnM"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.2201302930698476" green="0.68884722333522508" blue="0.9619782567024231" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="5dz-gw-36M"/>
+                        <constraint firstItem="Pkj-NE-9DW" firstAttribute="leading" secondItem="1an-R5-hI8" secondAttribute="leading" constant="20" id="JeZ-b0-zzg"/>
+                        <constraint firstAttribute="trailing" secondItem="DUO-IJ-ISa" secondAttribute="trailing" constant="5" id="ZRu-wr-znS"/>
+                        <constraint firstItem="DUO-IJ-ISa" firstAttribute="centerY" secondItem="1an-R5-hI8" secondAttribute="centerY" id="a5s-72-RRr"/>
+                        <constraint firstAttribute="bottom" secondItem="DUO-IJ-ISa" secondAttribute="bottom" constant="5" id="sli-RV-GDv"/>
+                        <constraint firstItem="Pkj-NE-9DW" firstAttribute="centerY" secondItem="1an-R5-hI8" secondAttribute="centerY" id="tkR-DA-Ztx"/>
+                        <constraint firstItem="DUO-IJ-ISa" firstAttribute="top" secondItem="1an-R5-hI8" secondAttribute="top" constant="5" id="woU-2V-Snw"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="1an-R5-hI8" secondAttribute="trailing" id="2hn-Tb-rlm"/>
+                <constraint firstItem="M0B-K1-0aX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4yB-dh-VaT"/>
+                <constraint firstItem="M0B-K1-0aX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OYd-yQ-dZ4"/>
+                <constraint firstItem="1an-R5-hI8" firstAttribute="top" secondItem="M0B-K1-0aX" secondAttribute="bottom" id="af0-U0-jKq"/>
+                <constraint firstItem="gil-bu-Wmt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dRC-Ac-3iz"/>
+                <constraint firstAttribute="trailing" secondItem="M0B-K1-0aX" secondAttribute="trailing" id="hru-Kx-m9S"/>
+                <constraint firstAttribute="bottom" secondItem="gil-bu-Wmt" secondAttribute="bottom" id="id8-go-uea"/>
+                <constraint firstItem="1an-R5-hI8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nLY-Be-F7D"/>
+                <constraint firstItem="35L-8d-Qo3" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="na4-nn-fRH"/>
+                <constraint firstItem="gil-bu-Wmt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sKG-RD-3jx"/>
+                <constraint firstAttribute="bottom" secondItem="1an-R5-hI8" secondAttribute="bottom" id="wYF-KC-pZX"/>
+                <constraint firstAttribute="trailing" secondItem="gil-bu-Wmt" secondAttribute="trailing" id="xSU-p5-EOc"/>
+            </constraints>
+            <point key="canvasLocation" x="29.5" y="25.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="background" width="375" height="667"/>
+    </resources>
+</document>

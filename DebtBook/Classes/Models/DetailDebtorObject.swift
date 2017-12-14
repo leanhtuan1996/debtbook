@@ -8,33 +8,40 @@
 
 import UIKit
 import Gloss
+import RealmSwift
 
-class DetailDebtorObject: NSObject, Decodable {
-    /*
-     "id": 1,
-     "debtor_id": 3,
-     "amount": 1000000,
-     "created_at": "2017-11-15T15:46:26.000Z",
-     "updated_at": "2017-11-15T15:46:26.000Z"
-     
-     */
-    var id: Int
-    var id_debtor: Int?
-    var debt: Int?
-    var borrowedDay: String?
+class DetailDebtorObject: Object, Encodable {
     
-    override init() {
-        self.id = 0
-    }
-    
-    required init?(json: JSON) {
-        guard let id: Int = "id" <~~ json, let idDebtor: Int = "debtor_id" <~~ json else {
+    @objc dynamic var id: String?
+    @objc dynamic var debt: Int = 0
+    @objc dynamic var dateCreated: Int = 0
+  
+    func fromJSON(json: JSON) -> DetailDebtorObject? {
+        
+        let detail: DetailDebtorObject? = DetailDebtorObject()
+        
+        guard let id: String = "id" <~~ json else {
             return nil
         }
         
-        self.id = id
-        self.id_debtor = idDebtor
-        self.debt = "amount" <~~ json
-        self.borrowedDay = "created_at" <~~ json
+        detail?.id = id
+        
+        if let debt: Int = "debt" <~~ json {
+            detail?.debt = debt
+        }
+        
+        if let dateCreated: Int = "dateCreated" <~~ json {
+            detail?.dateCreated = dateCreated
+        }
+        
+        return detail
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "id" ~~> self.id,
+            "debt" ~~> self.debt,
+            "dateCreated" ~~> self.dateCreated
+            ])
     }
 }

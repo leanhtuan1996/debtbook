@@ -8,58 +8,81 @@
 
 import UIKit
 import Gloss
+import RealmSwift
 
-class DebtorObject: NSObject, Glossy {
-    var id: Int
-    var name: String?
-    var phoneNumber: String?
-    var address: String?
-    var district: String?
-    var detail: [DetailDebtorObject]?
-    var firstDebit: Int?
-    var totalDebit: Int?
-    var dateCreated: String?
+class DebtorObject: Object, Encodable {
+    @objc dynamic var id: String?
+    @objc dynamic var name: String?
+    @objc dynamic var phoneNumber: String?
+    @objc dynamic var address: String?
+    @objc dynamic var district: String?
+    @objc dynamic var firstDebit: Int = 0
+    @objc dynamic var totalDebit: Int = 0
+    @objc dynamic var dateCreated: Int = 0
+    @objc dynamic var dateUpdated: Int = 0
+    @objc dynamic var idUser: String?
     
-    override init() {
-        self.id = 0
-    }
+    var detail = List<DetailDebtorObject>()
     
-    required init?(json: JSON) {
+    func fromJSON(json: JSON) -> DebtorObject? {
         
-        /*
-         ["district": Sisattanak, "name": Lam Quang Q, "phonenumber": 0963225057, "id": 3, "firstdebit": 2000000, "updated_at": 2017-11-15T15:54:44.000Z, "address": 30B, "created_at": 2017-11-15T15:46:12.000Z, "currentdebit": 4000000]
-         */
+        let debtor: DebtorObject? = DebtorObject()
         
-        guard let id: Int = "id" <~~ json else {
+        guard let id: String = "id" <~~ json else {
             return nil
         }
         
-        self.id = id
-        self.name = "name" <~~ json
-        self.phoneNumber = "phonenumber" <~~ json
-        self.address = "address" <~~ json
-        self.district = "district" <~~ json
-        self.firstDebit = "firstdebit" <~~ json
-        self.totalDebit = "currentdebit" <~~ json
-        self.dateCreated = "created_at" <~~ json
+        debtor?.id = id
         
-                
-        if let detailDebtor: [JSON] = "details" <~~ json {
-            if let detailsDebtor = [DetailDebtorObject].from(jsonArray: detailDebtor) {
-                self.detail = detailsDebtor
-            }
+        if let name: String = "name" <~~ json {
+            debtor?.name = name
         }
         
+        if let address: String = "address" <~~ json {
+            debtor?.address = address
+        }
+        
+        if let district: String = "district" <~~ json {
+            debtor?.district = district
+        }
+        
+        if let firstDebit: Int = "firstDebit" <~~ json {
+            debtor?.firstDebit = firstDebit
+        }
+        
+        if let totalDebit: Int = "totalDebit" <~~ json {
+            debtor?.totalDebit = totalDebit
+        }
+        
+        if let dateCreated: Int = "dateCreated" <~~ json {
+            debtor?.dateCreated = dateCreated
+        }
+        
+        if let dateUpdated: Int = "dateUpdated" <~~ json {
+            debtor?.dateUpdated = dateUpdated
+        }
+        
+        if let phoneNumber: String = "phoneNumber" <~~ json {
+            debtor?.phoneNumber = phoneNumber
+        }
+        
+        return debtor
     }
+   
     
     func toJSON() -> JSON? {
         return jsonify([
-            "id" ~~> self.id,
-            "name" ~~> self.name,
-            "phonenumber" ~~> self.phoneNumber,
-            "address" ~~> self.address,
-            "district" ~~> self.district,
-            "firstdebit" ~~> self.firstDebit
-            ])
+        "id" ~~> self.id,
+        "name" ~~> self.name,
+        "address" ~~> self.address,
+        "district" ~~> self.district,
+        "totalDebit" ~~> self.totalDebit,
+        "firstDebit" ~~> self.firstDebit,
+        "phoneNumber" ~~> self.phoneNumber,
+        "dateCreated" ~~> self.dateCreated,
+        "dateUpdated" ~~> self.dateUpdated,
+        "idUser" ~~> self.idUser
+        ])
     }
 }
+

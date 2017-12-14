@@ -8,15 +8,20 @@
 
 import UIKit
 
-class AddDetailVC: UIViewController {
+enum DetailDebitType {
+    case borrow
+    case pay
+}
 
+class AddDetailVC: UIViewController {
+    
     @IBOutlet weak var viewPopup: UIView!
     @IBOutlet weak var txtDebit: UITextField!
     @IBOutlet weak var segSelectType: UISegmentedControl!
     
-    var isAddDebit = true
-    var idDebtor: Int?
+    var detailDebitType = DetailDebitType.borrow
     var loading = UIActivityIndicatorView()
+    var delegate: DetailDebtorDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +34,7 @@ class AddDetailVC: UIViewController {
         showAnimate()
     }
     
-    func showAnimate()
-    {
+    func showAnimate() {
         self.view.transform = CGAffineTransform(scaleX: 0, y: 0)
         self.view.alpha = 0
         
@@ -44,21 +48,21 @@ class AddDetailVC: UIViewController {
                     self.view.transform = CGAffineTransform.identity
                 })
             }
-        } 
+        }
     }
     
-    func removeAnimate()
-    {
+    func removeAnimate() {
         self.view.backgroundColor = UIColor.clear.withAlphaComponent(0)
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
             self.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }) { (finished) in
             if finished
             {
-                if let vc = self.parent as? DetailsDebtorVC {
-                    vc.didMove(toParentViewController: self)
-                }
+                //if let vc = self.parent as? DetailsDebtorVC {
+                //    vc.didMove(toParentViewController: self)
+                //}
                 
+                self.willMove(toParentViewController: nil)
                 self.view.removeFromSuperview()
                 self.removeFromParentViewController()
             }
@@ -68,47 +72,43 @@ class AddDetailVC: UIViewController {
     func changeType() {
         switch self.segSelectType.selectedSegmentIndex {
         case 1:
-            self.isAddDebit = false
+            self.detailDebitType = .pay
         default:
-            self.isAddDebit = true
+            self.detailDebitType = .borrow
         }
     }
-
-  
+    
     @IBAction func btnDoneClicked(_ sender: Any) {
         
         if !self.txtDebit.hasText {
             return
         }
         
-        guard let debitString = self.txtDebit.text, let id = self.idDebtor else {
+        guard let debitString = self.txtDebit.text, var debit = debitString.toInt() else {
             return
         }
         
-        guard var debit = debitString.toInt() else {
-            return
-        }
+        if debit == 0 { self.showAlert("Nhập số khác 0", title: "Lỗi", buttons: nil); return }
         
-        self.loading.showLoadingDialog(self)
-        if isAddDebit {
+        switch self.detailDebitType {
+        case .borrow:
             if debit < 0 {
                 debit = debit * (-1)
             }
-        } else {
+        case .pay:
             if debit > 0 {
                 debit *= -1
             }
         }
         
-        if debit == 0 { self.showAlert("Nhập số khác 0", title: "Lỗi", buttons: nil); return}
         
-        DebtServices.shared.addDetail(with: id, debts: debit) { (error) in
-            if let error = error {
-                self.showAlert(error, title: "Thêm thất bại", buttons: nil)
-                return
-            }
-            self.removeAnimate()
-        }
+        let detail = DetailDebtorObject()
+        detail.dateCreated = Date().timeIntervalSince1970.toInt()
+        detail.debt = debit
+        
+        self.delegate?.addDetail(with: detail)
+        
+        self.removeAnimate()
     }
     
     @IBAction func btnCancelClicked(_ sender: Any) {
@@ -118,7 +118,7 @@ class AddDetailVC: UIViewController {
 
 extension AddDetailVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        UIView.animate(withDuration: 0.2) { 
+        UIView.animate(withDuration: 0.2) {
             self.viewPopup.transform = CGAffineTransform(translationX: self.viewPopup.layer.anchorPoint.x, y: self.viewPopup.layer.anchorPoint.x - 20)
         }
         return true

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1031" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="33H-Wz-c5O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17B1003" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="chz-Bs-etr">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -94,10 +94,10 @@
                             <tableViewSection headerTitle="Họ và Tên" id="EA4-E9-ZyW">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="MT6-28-xwr">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MT6-28-xwr" id="Xxr-js-nTQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="43.5" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Họ và tên người mượn" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lvl-im-eHC">
@@ -120,10 +120,10 @@
                             <tableViewSection headerTitle="Số điện thoại liên hệ" id="91q-Db-acp">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="uyQ-T8-sbC">
-                                        <rect key="frame" x="0.0" y="157" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="156.5" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uyQ-T8-sbC" id="uYG-vY-5c3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số điện thoại" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y0O-6G-1b8">
@@ -143,13 +143,39 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Tiền nợ" id="28o-QH-IyU">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="m0H-tc-OTS">
+                                        <rect key="frame" x="0.0" y="257.5" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0H-tc-OTS" id="urV-N6-odW">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số tiền nợ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aM1-m8-f3h">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numberPad"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aM1-m8-f3h" firstAttribute="leading" secondItem="urV-N6-odW" secondAttribute="leading" id="24g-Lw-HQ7"/>
+                                                <constraint firstAttribute="trailing" secondItem="aM1-m8-f3h" secondAttribute="trailing" id="6jH-ad-Aww"/>
+                                                <constraint firstItem="aM1-m8-f3h" firstAttribute="top" secondItem="urV-N6-odW" secondAttribute="top" id="fn0-jG-8m3"/>
+                                                <constraint firstAttribute="bottom" secondItem="aM1-m8-f3h" secondAttribute="bottom" id="wPY-ve-61h"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Thông tin địa chỉ" id="ctv-YQ-pld">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="svG-v7-blJ">
-                                        <rect key="frame" x="0.0" y="258" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="358.5" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="svG-v7-blJ" id="Qjt-vV-MY5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Địa chỉ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mh0-bD-U4E">
@@ -168,10 +194,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="CFi-fU-iTn">
-                                        <rect key="frame" x="0.0" y="303" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="403.5" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CFi-fU-iTn" id="4cq-Cm-fFi">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvS-2s-7hu">
@@ -189,32 +215,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="zvS-2s-7hu" secondAttribute="trailing" id="U8h-bX-wWh"/>
                                                 <constraint firstItem="zvS-2s-7hu" firstAttribute="leading" secondItem="4cq-Cm-fFi" secondAttribute="leading" id="ZVp-66-M9t"/>
                                                 <constraint firstItem="zvS-2s-7hu" firstAttribute="top" secondItem="4cq-Cm-fFi" secondAttribute="top" id="awE-rZ-oFv"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Tiền nợ" id="28o-QH-IyU">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="m0H-tc-OTS">
-                                        <rect key="frame" x="0.0" y="404" width="375" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0H-tc-OTS" id="urV-N6-odW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số tiền nợ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aM1-m8-f3h">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numberPad"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="aM1-m8-f3h" firstAttribute="leading" secondItem="urV-N6-odW" secondAttribute="leading" id="24g-Lw-HQ7"/>
-                                                <constraint firstAttribute="trailing" secondItem="aM1-m8-f3h" secondAttribute="trailing" id="6jH-ad-Aww"/>
-                                                <constraint firstItem="aM1-m8-f3h" firstAttribute="top" secondItem="urV-N6-odW" secondAttribute="top" id="fn0-jG-8m3"/>
-                                                <constraint firstAttribute="bottom" secondItem="aM1-m8-f3h" secondAttribute="bottom" id="wPY-ve-61h"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -401,7 +401,7 @@
                                             <constraint firstItem="Lw9-qP-qGV" firstAttribute="width" secondItem="Y5C-u2-1En" secondAttribute="width" id="qy9-Pc-nNL"/>
                                         </constraints>
                                     </stackView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Số tiền nợ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VfO-FH-7GB">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Số tiền" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VfO-FH-7GB">
                                         <rect key="frame" x="10" y="110" width="280" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="ySh-0V-aVX"/>
@@ -445,12 +445,30 @@
             </objects>
             <point key="canvasLocation" x="870" y="903"/>
         </scene>
+        <!--LaunchVC-->
+        <scene sceneID="tGE-fv-0Zj">
+            <objects>
+                <viewController storyboardIdentifier="LaunchVC" id="chz-Bs-etr" customClass="LaunchVC" customModule="DebtBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fk8-0Z-Ad3"/>
+                        <viewControllerLayoutGuide type="bottom" id="adx-mI-j6C"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9FY-gu-ehk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dUO-v7-iK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-668" y="-561"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="UK8-Cn-N6d">
             <objects>
                 <navigationController storyboardIdentifier="navi" automaticallyAdjustsScrollViewInsets="NO" id="33H-Wz-c5O" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yzO-ra-fGH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yzO-ra-fGH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

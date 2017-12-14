@@ -9,17 +9,16 @@
 import UIKit
 
 class AddDebtorVC: UITableViewController {
-
+    
     @IBOutlet weak var txtFirstDebit: UITextField!
     @IBOutlet weak var btnDistrict: UIButton!
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var txtPhoneNumber: UITextField!
     @IBOutlet weak var txtName: UITextField!
     
-    var isEditDebtor = false
-    var idDebtor: Int?
-    var debtorEdit: DebtorObject?
+    var debtor: DebtorObject?
     var loading = UIActivityIndicatorView()
+    var delegate: DebtorDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,25 +39,24 @@ class AddDebtorVC: UITableViewController {
         let doneButton = UIBarButtonItem(title: "Xong", style: UIBarButtonItemStyle.done, target: self, action: #selector(done))
         self.navigationItem.setRightBarButton(doneButton, animated: true)
         
-        if let debtor = self.debtorEdit {
+        //if debtor is exist => edit debtor
+        if let debtor = self.debtor {
             self.txtName.text = debtor.name
             self.txtPhoneNumber.text = debtor.phoneNumber
             self.txtAddress.text = debtor.address
             self.btnDistrict.setTitle(debtor.district, for: UIControlState.normal)
-            self.txtFirstDebit.text = debtor.firstDebit?.toString()
+            self.txtFirstDebit.text = debtor.firstDebit.toString()
         }
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 4
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if section == 2 { return 2 }
+        if section == 3 { return 2 }
         else { return 1 }
     }
     
@@ -102,49 +100,53 @@ class AddDebtorVC: UITableViewController {
             return
         }
         
-        let debtorObject = DebtorObject()
+        guard let debitInt = debit.toInt() else {
+            self.showAlert("Hãy nhập lại số nợ bằng số", title:"Số tiền nợ không hợp lệ" , buttons: nil)
+            return
+        }
         
-        debtorObject.name = fullName
-        debtorObject.phoneNumber = phoneNumber
-        debtorObject.address = address
-        debtorObject.district = district
-        debtorObject.firstDebit = debit.toInt()
-        
-        if self.isEditDebtor { //edit
-            
-            //for editing
-            guard let id = self.idDebtor else {
-                self.showAlert("Mã người nợ không được rỗng", title: "Sửa thất bại", buttons: nil)
-                return
-            }
-            
-            debtorObject.id = id
-            
-            loading.showLoadingDialog(self)
-            
-            DebtServices.shared.editDebtor(with: debtorObject, completionHandler: { (debtor, error) in
+        //edit
+        if let debtor = self.debtor {
+            debtor.name = fullName
+            debtor.phoneNumber = phoneNumber
+            debtor.address = address
+            debtor.district = district
+            debtor.firstDebit = debitInt
+            debtor.totalDebit = debitInt
+            debtor.dateUpdated = Date().timeIntervalSince1970.toInt()
+            self.loading.showLoadingDialog(self)
+            self.delegate?.editDebtor(with: debtor, { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
-                    self.showAlert(error, title: "Sửa thất bại", buttons: nil)
+                    let backAction = UIAlertAction(title: "Trở lại", style: UIAlertActionStyle.default, handler: { (action) in
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                    self.showAlert(error, title: "Whoops", buttons: [backAction])
+                    return
                 }
                 self.navigationController?.popViewController(animated: true)
             })
-            
-            
         } else {
-            //add
-            loading.showLoadingDialog(self)
-            DebtServices.shared.addDebtor(with: debtorObject) { (debtor, error) in
+            
+            //add new
+            let debtorObject = DebtorObject()
+            debtorObject.name = fullName
+            debtorObject.phoneNumber = phoneNumber
+            debtorObject.address = address
+            debtorObject.district = district
+            debtorObject.firstDebit = debitInt
+            debtorObject.totalDebit = debitInt
+            debtorObject.dateCreated = Date().timeIntervalSince1970.toInt()
+            debtorObject.dateUpdated = Date().timeIntervalSince1970.toInt()
+            
+            self.loading.showLoadingDialog(self)
+            
+            self.delegate?.addDebtor(with: debtorObject, { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Thêm người nợ không thành công", buttons: nil)
                 } else {
                     let backButton = UIAlertAction(title: "Trở về", style: UIAlertActionStyle.default, handler: { (alert) in
-                        
-                        if let vc = self.navigationController?.viewControllers[0] as? DebtsVC {
-                            vc.loadDebtors()
-                        }
-                        
                         self.navigationController?.popViewController(animated: true)
                     })
                     
@@ -158,10 +160,62 @@ class AddDebtorVC: UITableViewController {
                     
                     self.showAlert("Có muốn tiếp tục thêm người nợ không?", title: "Thêm nợ thành công", buttons: [backButton, continuesButton])
                 }
-            }
+            })
         }
+        /*
+         if self.isEditDebtor { //edit
+         
+         //for editing
+         guard let id = self.idDebtor else {
+         self.showAlert("Mã người nợ không được rỗng", title: "Sửa thất bại", buttons: nil)
+         return
+         }
+         
+         debtorObject.id = id
+         
+         loading.showLoadingDialog(self)
+         
+         DebtServices.shared.editDebtor(with: debtorObject, completionHandler: { (error) in
+         self.loading.stopAnimating()
+         if let error = error {
+         self.showAlert(error, title: "Sửa thất bại", buttons: nil)
+         }
+         self.navigationController?.popViewController(animated: true)
+         })
+         
+         
+         } else {
+         //add
+         loading.showLoadingDialog(self)
+         DebtServices.shared.addDebtor(with: debtorObject) { (error) in
+         self.loading.stopAnimating()
+         if let error = error {
+         self.showAlert(error, title: "Thêm người nợ không thành công", buttons: nil)
+         } else {
+         let backButton = UIAlertAction(title: "Trở về", style: UIAlertActionStyle.default, handler: { (alert) in
+         
+         if let vc = self.navigationController?.viewControllers[0] as? DebtsVC {
+         vc.loadDebtors()
+         }
+         
+         self.navigationController?.popViewController(animated: true)
+         })
+         
+         let continuesButton = UIAlertAction(title: "Thêm tiếp", style: UIAlertActionStyle.default, handler: { (alert) in
+         self.txtName.becomeFirstResponder()
+         self.txtName.text = ""
+         self.txtPhoneNumber.text = ""
+         self.txtAddress.text = ""
+         self.btnDistrict.setTitle("Quận/Huyện", for: UIControlState.normal)
+         })
+         
+         self.showAlert("Có muốn tiếp tục thêm người nợ không?", title: "Thêm nợ thành công", buttons: [backButton, continuesButton])
+         }
+         }
+         }
+         */
     }
-
+    
     @IBAction func btnSelectDistrictClicked(_ sender: Any) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectDistrictsVC") as? SelectDistrictsVC else {
             return
@@ -170,58 +224,58 @@ class AddDebtorVC: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
+     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+     
+     // Configure the cell...
+     
+     return cell
+     }
+     */
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

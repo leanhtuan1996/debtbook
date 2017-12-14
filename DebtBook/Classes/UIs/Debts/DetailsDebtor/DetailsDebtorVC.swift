@@ -7,19 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DetailsDebtorVC: UIViewController {
-
+    
     @IBOutlet weak var tblDetailDebtors: UITableView!
     @IBOutlet weak var lblTotalDebts: UILabel!
     
     var debtor: DebtorObject?
     var loading = UIActivityIndicatorView()
-    var idDebtor: Int?
     var checkBorrow = 1
     var checkPayment = 0
     var refresh = UIRefreshControl()
-    var totalDebt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +32,8 @@ class DetailsDebtorVC: UIViewController {
         self.tblDetailDebtors.refreshControl = self.refresh
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        if parent is AddDetailVC {
-            self.loadDetailDebtor()
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        let addDetailItem = UIBarButtonItem(title: "Thêm mới", style: UIBarButtonItemStyle.done, target: self, action: #selector(addDetail))
+        let addDetailItem = UIBarButtonItem(title: "Thêm mới", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.showDetailDialog))
         self.navigationItem.setRightBarButton(addDetailItem, animated: true)
         self.loadDetailDebtor()
     }
@@ -51,12 +44,42 @@ class DetailsDebtorVC: UIViewController {
             self.loading.showLoadingDialog(self)
         }
         
-        guard let id = self.idDebtor else {
+        guard let id = self.debtor?.id else {
             return
         }
         
+        DebtServices.shared.getDetailDebtor(with: id) { (details, error) in
+            if self.loading.isAnimating {
+                self.loading.stopAnimating()
+            }
+            
+            if self.refresh.isRefreshing {
+                self.refresh.endRefreshing()
+            }
+            
+            if let error = error {
+                self.showAlert(error, title: "Whoops", buttons: nil)
+                return
+            }
+            
+            self.debtor?.detail = details ?? List<DetailDebtorObject>()
+            
+            DispatchQueue.main.async {
+                self.tblDetailDebtors.reloadData()
+                self.lblTotalDebts.text = "Tổng số tiền nợ: \(self.debtor?.totalDebit ?? 0)"
+            }
+            
+            print("LÍSTEN")
+            
+            self.checkBorrow = 1
+            self.checkPayment = 0
+        }
+        /*
         DebtServices.shared.getDebtor(with: id) { (debtor, error) in
-            self.loading.stopAnimating()
+            
+            if self.loading.isAnimating {
+                self.loading.stopAnimating()
+            }
             
             if self.refresh.isRefreshing {
                 self.refresh.endRefreshing()
@@ -73,7 +96,7 @@ class DetailsDebtorVC: UIViewController {
                 
                 if let details = debtor?.detail {
                     details.forEach({ (detail) in
-                        self.totalDebt += detail.debt ?? 0
+                        self.totalDebt += detail.debt
                     })
                 }
                 
@@ -81,34 +104,46 @@ class DetailsDebtorVC: UIViewController {
                 
                 self.checkBorrow = 1
                 self.checkPayment = 0
-                
             }
         }
+ */
     }
     
     func refreshing() {
         self.refresh.beginRefreshing()
         self.loadDetailDebtor()
     }
+    
     @IBAction func btnShowSettingsClicked(_ sender: Any) {
+        
+        guard let debtor = self.debtor else {
+            return
+        }
+        
         let btnPayAllDebt = UIAlertAction(title: "Thanh toán toàn bộ số nợ", style: UIAlertActionStyle.default) { (action) in
-            if self.totalDebt == 0 {
+            if debtor.totalDebit == 0 {
                 return
             }
             
-            guard let id = self.idDebtor else {
+            guard let id = debtor.id else {
                 return
+            }
+            
+            
+            
+            let detail = DetailDebtorObject()
+            detail.dateCreated = Date().timeIntervalSince1970.toInt()
+            
+            if debtor.totalDebit > 0 {
+                detail.debt = debtor.totalDebit * (-1)
             }
             
             self.loading.showLoadingDialog(self)
-            
-            DebtServices.shared.addDetail(with: id, debts: self.totalDebt * (-1), completionHandler: { (error) in
+            DebtServices.shared.addDetail(withid: id, detail: detail, completionHandler: { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Thanh toán thất bại", buttons: nil)
-                    return
                 }
-                self.loadDetailDebtor()
             })
         }
         
@@ -121,38 +156,36 @@ class DetailsDebtorVC: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func addDetail() {
+    func showDetailDialog() {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "AddDetailVC") as? AddDetailVC else {
             return
         }
-        vc.idDebtor = self.debtor?.id
+        
+        vc.delegate = self
         self.addChildViewController(vc)
         vc.view.frame = self.view.frame
         self.view.addSubview(vc.view)
         self.didMove(toParentViewController: self)
     }
-    
-    func deleteDetail(idDetail: Int, comletionHandler: @escaping(_ error: String?) -> Void) {
-        DebtServices.shared.deleteDetail(withId: idDetail, completionHandler: { (error) in
-            return comletionHandler(error)
-        })
-    }
 }
 
 extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsDebtorCell", for: indexPath) as? DetailsDebtorCell, let debtor = self.debtor, let detail = debtor.detail else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsDebtorCell", for: indexPath) as? DetailsDebtorCell, let debtor = self.debtor else {
             return UITableViewCell()
         }
+        
+        let detail = Array(debtor.detail)
         
         if indexPath.row == 0 {
             if let firstDebt = self.debtor?.firstDebit, let dateBorrow = self.debtor?.dateCreated {
                 cell.lblDebt.text = firstDebt.toString()
-                cell.lblDateBorrow.text = dateBorrow.jsonDateToDate()
+                cell.lblDateBorrow.text = dateBorrow.toTimestampString()
                 cell.lblNumberOfTimesBorrowed.text = "Lần mượn đầu tiên"
             }
         } else {
-            if let debt = detail[indexPath.row - 1].debt, debt <= 0 {
+            let debt = detail[indexPath.row - 1].debt
+            if debt <= 0 {
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\((debt * (-1)).toString())")
                 attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
                 cell.lblDebt.attributedText = attributeString
@@ -160,11 +193,11 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
                 cell.lblNumberOfTimesBorrowed.text = "Lần trả thứ \(self.checkPayment)"
             } else {
                 self.checkBorrow += 1
-                cell.lblDebt.text = detail[indexPath.row - 1].debt?.toString() ?? "0"
+                cell.lblDebt.text = detail[indexPath.row - 1].debt.toString()
                 cell.lblNumberOfTimesBorrowed.text = "Lần mượn thứ \(self.checkBorrow)"
             }
             
-            cell.lblDateBorrow.text = detail[indexPath.row - 1].borrowedDay?.jsonDateToDate() ?? "Không rõ"
+            cell.lblDateBorrow.text = detail[indexPath.row - 1].dateCreated.toTimestampString()
             
         }
         
@@ -172,12 +205,12 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (debtor?.detail?.count ?? 0) + 1
+        return (self.debtor?.detail.count ?? 0) + 1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let debtor = self.debtor else {
+        guard let debtor = self.debtor, let id = debtor.id else {
             return
         }
         
@@ -186,9 +219,9 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
             var debit = 0
             
             if indexPath.row == 0 {
-                debit = debtor.firstDebit ?? 0
+                debit = debtor.firstDebit
             } else {
-                debit = debtor.detail?[indexPath.row - 1].debt ?? 0
+                debit = debtor.detail[indexPath.row - 1].debt
             }
             
             if debit == 0 { return }
@@ -196,53 +229,57 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
             debit *= (-1)
             
             self.loading.showLoadingDialog(self)
-            DebtServices.shared.addDetail(with: debtor.id, debts: debit, completionHandler: { (error) in
+            
+            let detail = DetailDebtorObject()
+            detail.debt = debit
+            detail.dateCreated = Date().timeIntervalSince1970.toInt()
+            
+            DebtServices.shared.addDetail(withid: id, detail: detail, completionHandler: { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Thanh toán thất bại", buttons: nil)
                 }
-                self.loadDetailDebtor()
                 self.dismiss(animated: true, completion: nil)
             })
         }
         
-        let btnEditThisDebt = UIAlertAction(title: "Chỉnh sửa khoãng nợ này", style: UIAlertActionStyle.default) { (action) in
+        let btnDeleteThisDebt = UIAlertAction(title: "Xoá khoãng tiền này", style: UIAlertActionStyle.destructive) { (action) in
             
-        }
-        
-        let btnDeleteThisDebt = UIAlertAction(title: "Xoá khoãng nợ này", style: UIAlertActionStyle.destructive) { (action) in
-            
-            guard let id = self.debtor?.detail?[indexPath.row - 1].id else {
+            guard let idDetail = debtor.detail[indexPath.row - 1].id else {
                 return
             }
             
             self.loading.showLoadingDialog(self)
-            self.deleteDetail(idDetail: id, comletionHandler: { (error) in
+            DebtServices.shared.deleteDetail(withIdDebtor: id, andIdDetail: idDetail, { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Xoá không thành công", buttons: nil)
                     return
                 }
-                self.loadDetailDebtor()
                 self.dismiss(animated: true, completion: nil)
             })
+            
         }
         
         let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.cancel, handler: nil)
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        alert.addAction(btnPayThisDebt)
-        alert.addAction(btnCancel)
         
         var debt = 0
         
         if indexPath.row == 0 {
             debt = self.debtor?.firstDebit ?? 0
+            alert.addAction(btnPayThisDebt)
         } else {
-            alert.addAction(btnEditThisDebt)
+            let currentDebt = debtor.detail[indexPath.row - 1].debt
+            if currentDebt > 0 {
+                alert.addAction(btnPayThisDebt)
+            }
+            debt = currentDebt
             alert.addAction(btnDeleteThisDebt)
-            debt = debtor.detail?[indexPath.row - 1].debt ?? 0
         }
+        
+        alert.addAction(btnCancel)
         
         if debt == 0 { return }
         
@@ -251,27 +288,55 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
+        guard let debtor = self.debtor else {
+            return nil
+        }
+        
+        if indexPath.row == 0 { return nil }
+        
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Xoá") { (rowAction, indexPath) in
             if indexPath.row == 0 { return }
             
-            guard let idDetail = self.debtor?.detail?[indexPath.row - 1].id else {
+            guard let idDetail = debtor.detail[indexPath.row - 1].id else {
                 return
             }
             
             self.loading.showLoadingDialog(self)
-            self.deleteDetail(idDetail: idDetail, comletionHandler: { (error) in
+            self.deleteDetail(withId: idDetail, { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Đã xảy ra lỗi trong quá trình xoá", buttons: nil)
-                } else {
-                    DispatchQueue.main.async {                        
-                        self.totalDebt -= self.debtor?.detail?[indexPath.row - 1].debt ?? 0
-                        self.debtor?.detail?.remove(at: indexPath.row - 1)
-                        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-                    }
                 }
             })
         }
         return [deleteAction]
+    }
+}
+
+extension DetailsDebtorVC: DetailDebtorDelegate {
+    func addDetail(with detail: DetailDebtorObject) -> Void {
+        
+        guard let idDebtor = self.debtor?.id else {
+            return
+        }
+        
+        self.loading.showLoadingDialog(self)
+        DebtServices.shared.addDetail(withid: idDebtor, detail: detail) { (error) in
+            self.loading.stopAnimating()
+            if let error = error {
+                self.showAlert(error, title: "Thao tác thất bại", buttons: nil)
+                return
+            }
+        }
+    }
+    
+    func deleteDetail(withId id: String, _ completed: @escaping(_ error: String?) -> Void) -> Void {
+        guard let idDebtor = self.debtor?.id else {
+            return
+        }
+        
+        DebtServices.shared.deleteDetail(withIdDebtor: idDebtor, andIdDetail: id) { (error) in
+            return completed(error)
+        }
     }
 }

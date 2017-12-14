@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 extension Date {
-    func getDate() -> String {
+    static func getDate() -> String {
         let date = Date()
         let formater = DateFormatter()
         formater.dateFormat = "MM/dd/yyyy"
         let dateOrder = formater.string(from: date)
         return dateOrder
-    }    
+    }
 }

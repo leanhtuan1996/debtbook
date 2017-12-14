@@ -9,271 +9,255 @@
 import UIKit
 import Gloss
 import Alamofire
+import RealmSwift
+import FirebaseAuth
+import FirebaseFirestore
 
 class DebtServices: NSObject {
     static let shared = DebtServices()
     
-    /**
-     
-     [
-     {
-     "id": 1,
-     "name": "Lam Quang Q",
-     "phonenumber": "0963225057",
-     "address": "30B",
-     "district": "Sisattanak",
-     "firstdebit": 2000000,
-     "currentdebit": 2000000,
-     "created_at": "2017-11-15T14:35:34.000Z",
-     "updated_at": "2017-11-15T14:35:34.000Z"
-     }
-     ]
-     */
+    let refDebtor = Firestore.firestore().collection("Debtor")
+    
+    let settings = Firestore.firestore()
     
     func getDebtors(_ completionHandler: @escaping (_ debtors: [DebtorObject]?, _ error: String?) -> Void ) {
-        Alamofire.request(DebtsRouter.getDebts())
-            .validate()
-            .response { (dataRespone) in
-                if let error = dataRespone.error {
-                    return completionHandler(nil, Helpers.handleError(dataRespone.response, error: error as NSError))
+        
+        if UserManager.shared.isAnonymousLoggedIn() {
+            //fetch all data in local database
+        } else {
+            
+            guard let id = UserServices.shared.currentUser?.uid else {
+                return completionHandler([], "User not found")
+            }
+            
+            refDebtor.whereField("idUser", isEqualTo: id).addSnapshotListener({ (snapshot, error) in
+                if let error = error {
+                    return completionHandler([], error.localizedDescription)
                 }
                 
-                guard let data = dataRespone.data else {
-                    return completionHandler(nil, "Data respone not found")
+                guard let snapshot = snapshot else {
+                    return completionHandler([], "Data snapshot is missing!")
                 }
                 
-                guard let debtors = [DebtorObject].from(data: data) else {
-                    return completionHandler(nil, "Convert data to object has been failed")
+                if snapshot.documents.count == 0 {
+                    return completionHandler([], "Data received are empty")
                 }
+                
+                var debtors = [DebtorObject]()
+                
+                
+                //fetch data json to object of array and return array
+                snapshot.documents.forEach({ (document) in
+                    if let debtor = DebtorObject().fromJSON(json: document.data()) {
+                        debtors.append(debtor)
+                    }
+                })
                 
                 return completionHandler(debtors, nil)
-        }
-    }
-    
-    
-    func getDebtor(with id: Int , completionHandler: @escaping (_ debtor: DebtorObject?, _ error: String?) -> Void ) {
-        let parameter = [
-            "debtorId" : id
-        ]
-        
-        Alamofire.request(DebtsRouter.getDebt(parameter))
-            .validate()
-            .response { (dataRespone) in
-                if let error = dataRespone.error {
-                    return completionHandler(nil, Helpers.handleError(dataRespone.response, error: error as NSError))
+            })
+            /*
+            refDebtor.whereField("idUser", isEqualTo: id).getDocuments(completion: { (snapshot, error) in
+                if let error = error {
+                    return completionHandler([], error.localizedDescription)
                 }
                 
-                guard let data = dataRespone.data else {
-                    return completionHandler(nil, "Data respone not found")
+                guard let snapshot = snapshot else {
+                    return completionHandler([], "Data snapshot is missing!")
                 }
                 
-                guard let dataJson = data.toDictionary() else {
-                    return completionHandler(nil, "Convert data to json has been failed")
+                if snapshot.documents.count == 0 {
+                    return completionHandler([], "Data received are empty")
                 }
                 
-                guard let debtorJson = dataJson["debtorInfo"] as? JSON, let detailDebtorJson = dataJson["details"] as? [JSON] else {
-                    return completionHandler(nil, "Data debtor not found")
-                }
+                var debtors = [DebtorObject]()
                 
-                guard let debtorObject = DebtorObject(json: debtorJson), let detailDebtor = [DetailDebtorObject].from(jsonArray: detailDebtorJson) else {
-                    return completionHandler(nil, "Convert data json to Object has been failed")
-                }
-                
-                debtorObject.detail = detailDebtor
-                
-                return completionHandler(debtorObject, nil)
-        }
-    }
-    
-    
-    /**
-     
-     {
-     "id": 1,
-     "name": "Lam Quang Q",
-     "phonenumber": "0963225057",
-     "address": "30B",
-     "district": "Sisattanak",
-     "firstdebit": "2000000",
-     "currentdebit": "2000000",
-     "updated_at": "2017-11-15T14:35:34.765Z",
-     "created_at": "2017-11-15T14:35:34.765Z"
-     }
-     
-     */
-    
-    
-    func addDebtor(with debtor: DebtorObject, completionHandler: @escaping (_ debtor: DebtorObject?, _ error: String?) -> Void) {
-        guard let json = debtor.toJSON() else {
-            return completionHandler(nil, "Convert object to json has been failed")
-        }
-        
-        Alamofire.request(DebtsRouter.addDebt(json))
-            .validate()
-            .response { (dataRespone) in
-                if let error = dataRespone.error {
-                    return completionHandler(nil, Helpers.handleError(dataRespone.response, error: error as NSError))
-                }
-                
-                guard let data = dataRespone.data else {
-                    return completionHandler(nil, "Data respone not found")
-                }
-                
-                guard let debtor = DebtorObject(data: data) else {
-                    return completionHandler(nil, "Convert json to object has been failed")
-                }
-                
-                return completionHandler(debtor, nil)
-        }
-    }
-    
-    /**{
-     "id": 1,
-     "name": "Lam Quang",
-     "phonenumber": "0123456789",
-     "address": "30B duong so 3",
-     "district": "Sisattanak",
-     "firstdebit": "2000000",
-     "currentdebit": 2000000,
-     "created_at": "2017-11-15T14:35:34.000Z",
-     "updated_at": "2017-11-15T14:58:07.868Z"
-     }*/
-    
-    func editDebtor(with debtor:  DebtorObject, completionHandler: @escaping (_ debtor: DebtorObject?, _ error: String?) -> Void) {
-        guard let json = debtor.toJSON() else {
-            return completionHandler(nil, "Convert object to json has been failed")
-        }
-        
-        print(json)
-        
-        Alamofire.request(DebtsRouter.editDebt(json))
-            .validate()
-            .response { (dataRespone) in
-                
-                if let error = dataRespone.error {
-                    return completionHandler(nil, Helpers.handleError(dataRespone.response, error: error as NSError))
-                }
-                
-                guard let data = dataRespone.data else {
-                    return completionHandler(nil, "Data respone not found")
-                }
-                
-                guard let dataJson = data.toDictionary() else {
-                    return completionHandler(nil, "Convert data to json has been failed")
-                }
-                
-                if let errors = dataJson["errors"] as? [String] {
-                    if errors.count > 0 {
-                        return completionHandler(nil, errors[0])
+                //fetch data json to object of array and return array
+                snapshot.documents.forEach({ (document) in
+                    if let debtor = DebtorObject().fromJSON(json: document.data()) {
+                        debtors.append(debtor)
                     }
-                }
+                })
                 
-                if dataRespone.response?.statusCode == 500 {
-                    return completionHandler(nil, "Cập nhật thông tin thất bại")
-                }
-                
-                guard let debtor = DebtorObject(data: data) else {
-                    return completionHandler(nil, "Convert json to object has been failed")
-                }
-                
-                return completionHandler(debtor, nil)
+                return completionHandler(debtors, nil)
+            })
+ */
         }
     }
     
-    func deleteDebtor(with id: Int, completionHandler: @escaping (_ error: String?) -> Void) {
-        let parameter = [
-            "id" : id
-        ]
-        
-        Alamofire.request(DebtsRouter.deleteDebt(parameter))
-            .validate()
-            .response { (dataRespone) in
-                if let error = dataRespone.error {
-                    return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
+    func getDebtor(with id: String , completionHandler: @escaping (_ debtor: DebtorObject?, _ error: String?) -> Void ) {
+        if UserManager.shared.isAnonymousLoggedIn() {
+            
+        } else {
+            
+            refDebtor.document(id).addSnapshotListener({ (snapshot, error) in
+                if let error = error {
+                    return completionHandler(nil, error.localizedDescription)
                 }
                 
-                guard let data = dataRespone.data else {
-                    return completionHandler("Data respone not found")
+                guard let snapshot = snapshot else {
+                    return completionHandler(nil, "Data snapshot is missing!")
                 }
                 
-                if data.isEmpty { return completionHandler(nil) }
-                
-                //error handler
-                guard let errorJson = data.toDictionary() else {
-                    return completionHandler("Convert error data to json has been failed")
+                guard let debtorObject = DebtorObject().fromJSON(json: snapshot.data()) else {
+                    return completionHandler(nil, "Can not convert data to object")
                 }
                 
-                if let stackError = errorJson["stackError"] as? String {
-                    return completionHandler(stackError)
-                }
-                
-                if dataRespone.response?.statusCode == 500 {
-                    return completionHandler("Xoá người nợ thất bại")
-                }
+                snapshot.reference.collection("details").getDocuments(completion: { (snapshot, error) in
+                    if let error = error {
+                        return completionHandler(nil, error.localizedDescription)
+                    }
+                    
+                    let details = List<DetailDebtorObject>()
+                    
+                    guard let detailSnapshot = snapshot else {
+                        return completionHandler(nil, "Data snapshot is missing!")
+                    }
+                    
+                    let detailDocuments = detailSnapshot.documents
+                    
+                    if detailDocuments.count == 0 {
+                        return completionHandler(debtorObject, nil)
+                    }
+                    
+                    detailDocuments.forEach({ (detailData) in
+                        print(detailData)
+                        if let detail = DetailDebtorObject().fromJSON(json: detailData.data()) {
+                            details.append(detail)
+                        }
+                    })
+                    
+                    debtorObject.detail = details
+                    
+                    return completionHandler(debtorObject, nil)
+                    
+                })
+            })
         }
     }
     
-    /**
-     {
-     "id": 1,
-     "debtor_id": "3",
-     "amount": "1000000",
-     "updated_at": "2017-11-15T15:46:26.702Z",
-     "created_at": "2017-11-15T15:46:26.702Z"
-     }*/
+    func getDetailDebtor(with idDebtor: String, _ completion: @escaping(_ details: List<DetailDebtorObject>?, _ error: String?) -> Void) {
+        refDebtor.document(idDebtor).collection("details").addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                return completion(nil, error.localizedDescription)
+            }
+            
+            let details = List<DetailDebtorObject>()
+            
+            guard let detailSnapshot = snapshot else {
+                return completion(details, "Data snapshot is missing!")
+            }
+            
+            let detailDocuments = detailSnapshot.documents
+            
+            if detailDocuments.count == 0 {
+                return completion(details, nil)
+            }
+            
+            detailDocuments.forEach({ (detailData) in
+                if let detail = DetailDebtorObject().fromJSON(json: detailData.data()) {
+                    details.append(detail)
+                }
+            })
+            
+            return completion(details, nil)
+        }
+    }
     
-    func addDetail(with idUser: Int, debts: Int, completionHandler: @escaping (_ error: String?) -> Void) {
-        let parameters: [String: Any] = [
-            "debtorId" : idUser,
-            "amount" : debts
-        ]
-        
-        Alamofire.request(DebtsRouter.addDetailDebt(parameters))
-            .validate()
-            .response { (dataRespone) in
-                if let error = dataRespone.error {
-                    return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
-                }
-                
-                guard let data = dataRespone.data else {
-                    return completionHandler("Data respone not found")
-                }
-                
-                if dataRespone.response?.statusCode == 500 {
-                    return completionHandler("Thêm thất bại")
-                }
-                
+    func addDebtor(with debtor: DebtorObject, completionHandler: @escaping (_ error: String?) -> Void) {
+        if UserManager.shared.isAnonymousLoggedIn() {
+            
+        } else {
+            
+            guard let idUser = Auth.auth().currentUser?.uid else {
+                return completionHandler("Id of User was been missing")
+            }
+            
+            let idDebtor = refDebtor.document().documentID
+            debtor.id = idDebtor
+            debtor.idUser = idUser
+            
+            guard let json = debtor.toJSON() else {
+                return completionHandler("Convert to json has been failed!")
+            }
+            
+            switch InternetManager.shared.status {
+            case .notReachable, .unknown:
+                refDebtor.document(idDebtor).setData(json, options: SetOptions.merge())
                 return completionHandler(nil)
+            default:
+                refDebtor.document(idDebtor).setData(json, options: SetOptions.merge(), completion: { (error) in
+                    return completionHandler(error?.localizedDescription)
+                })
+            }
         }
     }
     
-    func deleteDetail(withId id: Int, completionHandler: @escaping (_ error: String?) -> Void) {
-        let parameter: [String: Any] = [
-            "detailId": id
-        ]
+    func editDebtor(with debtor:  DebtorObject, completionHandler: @escaping (_ error: String?) -> Void) {
         
-        Alamofire.request(DebtsRouter.deleteDetailDebt(parameter))
-            .validate()
-            .response { (dataRespone) in
-                if let error = dataRespone.error {
-                    return completionHandler(Helpers.handleError(dataRespone.response, error: error as NSError))
-                }
-                
-                guard let data = dataRespone.data else {
-                    return completionHandler("Data respone not found")
-                }
-                
-                if data.isEmpty { return completionHandler(nil) }
-                
-                //error handler
-                guard let errorJson = data.toDictionary() else {
-                    return completionHandler("Convert error data to json has been failed")
-                }
-                
-                if let stackError = errorJson["stackError"] as? String {
-                    return completionHandler(stackError)
-                }
+        if UserManager.shared.isAnonymousLoggedIn() {
+            
+        } else {
+            guard let id = debtor.id else {
+                return completionHandler("Id of Debtor is missing!")
+            }
+            
+            guard let json = debtor.toJSON() else {
+                return completionHandler("Can not convert object to json!")
+            }
+            
+            switch InternetManager.shared.status {
+            case .notReachable, .unknown:
+                refDebtor.document(id).updateData(json)
+                return completionHandler(nil)
+            default:
+                refDebtor.document(id).updateData(json, completion: { (error) in
+                    return completionHandler(error?.localizedDescription)
+                })
+            }
         }
+    }
+    
+    func deleteDebtor(with id: String, completionHandler: @escaping (_ error: String?) -> Void) {
+        if UserManager.shared.isAnonymousLoggedIn() {
+            
+        } else {
+            refDebtor.document(id).delete(completion: { (error) in
+                return completionHandler(error?.localizedDescription)
+            })
+        }
+    }
+    
+    func addDetail(withid idDebtor: String, detail: DetailDebtorObject, completionHandler: @escaping (_ error: String?) -> Void) {
+        if UserManager.shared.isAnonymousLoggedIn() {
+            
+        } else {
+            let refDetail = refDebtor.document(idDebtor).collection("details")
+            let idDetail = refDetail.document().documentID
+            
+            detail.id = idDetail
+            
+            guard let detailJson = detail.toJSON() else {
+                return completionHandler("Can not convert object tot json")
+            }
+            
+            refDetail.document(idDetail).setData(detailJson, options: SetOptions.merge(), completion: { (error) in
+                return completionHandler(error?.localizedDescription)
+            })
+        }
+    }
+    
+    func deleteDetail(withIdDebtor id: String, andIdDetail idDetail: String, _ completionHandler: @escaping (_ error: String?) -> Void) {
+        if UserManager.shared.isAnonymousLoggedIn() {
+            
+        } else {
+            refDebtor.document(id).collection("details").document(idDetail).delete(completion: { (error) in
+                return completionHandler(error?.localizedDescription)
+            })
+        }
+    }
+    
+    func syncData() {
+        
     }
     
     

@@ -16,36 +16,68 @@ extension String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         if let dateFormatted = dateFormatter.date(from: self) {
             //convert date to "yyyy-MM-dd" format
-            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            dateFormatter.dateFormat = "MM/dd/yyyy"
             return dateFormatter.string(from: dateFormatted)
         } else {
             return ""
         }
     }
     
-    
-    func isValidDate() -> Bool {
-        let formater = DateFormatter()
-        formater.dateFormat = "MM/dd/yyyy"
-        
-        if let _ = formater.date(from: self) {
-            return true
-        }
-        return false
-    }
-    
     func toInt() -> Int? {
+        
         if let int = Int(self) {
             return int
         }
         return nil
     }
     
-    func isInt() -> Bool {
-        if let _ = Int(self) {
+    func toDouble() -> Double? {
+        if let double = Double(self) {
+            return double
+        }
+        return nil
+    }
+    
+    func toTimeStamp(format: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
+        }
+        
+        return String(describing: date.timeIntervalSince1970)
+    }
+    
+    func timestampToDate() -> String {
+        let dateFormatter = DateFormatter()
+        
+        guard let timestamp = self.toDouble() else {
+            return "N/A"
+        }
+        
+        let date = Date(timeIntervalSince1970: timestamp)
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        dateFormatter.locale = Locale.current
+        return dateFormatter.string(from: date)
+    }
+    
+    func toTimeStamp() -> String {
+        let date = Date()
+        return String(date.timeIntervalSince1970)
+    }
+    
+    func isDate() -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        if let _ = dateFormatter.date(from: self) {
             return true
         }
         return false
+    }
+    
+    func isInt() -> Bool {
+        
+        return Int(self) != nil
     }
 }
 

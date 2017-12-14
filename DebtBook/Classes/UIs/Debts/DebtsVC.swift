@@ -17,6 +17,7 @@ class DebtsVC: UIViewController {
     var debtors: [DebtorObject] = []
     var debtorsFilter: [DebtorObject] = []
     var loading = UIActivityIndicatorView()
+    var totalDebit = 0
     
     var refreshCtrl = UIRefreshControl()
     
@@ -38,13 +39,13 @@ class DebtsVC: UIViewController {
         
         let editButton = UIBarButtonItem(title: "Sửa", style: UIBarButtonItemStyle.done, target: self, action: #selector(editDebtorClicked))
         self.navigationItem.setLeftBarButton(editButton, animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //loading debtors
+        
         loadDebtors()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     
     func loadDebtors() {
         
@@ -53,7 +54,10 @@ class DebtsVC: UIViewController {
         }
         
         DebtServices.shared.getDebtors { (debtors, error) in
-            self.loading.stopAnimating()
+            
+            if self.loading.isAnimating {
+                self.loading.stopAnimating()
+            }
             
             if self.refreshCtrl.isRefreshing {
                 self.refreshCtrl.endRefreshing()
@@ -65,14 +69,15 @@ class DebtsVC: UIViewController {
                 if let debtors = debtors {
                     self.debtors = debtors
                     self.debtorsFilter = debtors
-                    self.tblDebtors.reloadData()
                     
-                    var totalDepts = 0
+                    self.totalDebit = 0
                     debtors.forEach({ (debtor) in
-                        totalDepts += debtor.totalDebit ?? 0
+                        self.totalDebit += debtor.totalDebit 
                     })
                     
-                    self.lblTotals.text = "Tổng số tiền nợ: \(totalDepts.toString())"
+                    self.lblTotals.text = "Tổng số tiền nợ: \(self.totalDebit.toString())"
+                    
+                    self.tblDebtors.reloadData()
                     
                 } else {
                     self.showAlert("Người nợ không tìm thấy", title: "Oops", buttons: nil)
@@ -91,11 +96,12 @@ class DebtsVC: UIViewController {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "AddDebtorVC") as? AddDebtorVC else {
             return
         }
-        vc.isEditDebtor = false
         vc.title = "Thêm người nợ"
+        vc.delegate = self
         self.txtSearchDebtor.resignFirstResponder()
         navigationController?.pushViewController(vc, animated: true)
     }
+    
     func editDebtorClicked() {
         self.txtSearchDebtor.resignFirstResponder()
         if self.tblDebtors.isEditing {
@@ -109,14 +115,14 @@ class DebtsVC: UIViewController {
     }
 }
 
-extension DebtsVC: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DebtorCell", for: indexPath) as? DebtorCell else {
             return UITableViewCell()
         }
         
         cell.lblFullName.text = "\(self.debtorsFilter[indexPath.row].name ?? "Lê Anh Tuấn")"
-        cell.lblDebit.text = "\(self.debtorsFilter[indexPath.row].totalDebit ?? 0) VNĐ"
+        cell.lblDebit.text = "\(self.debtorsFilter[indexPath.row].totalDebit) VNĐ"
         cell.lblPhoneNumber.text = self.debtorsFilter[indexPath.row].phoneNumber ?? ""
         
         if let address = self.debtorsFilter[indexPath.row].address, let district = self.debtorsFilter[indexPath.row].district {
@@ -137,38 +143,43 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource, UISearchBarDelega
             return
         }
         
-        vc.idDebtor = self.debtorsFilter[indexPath.row].id
+        vc.debtor = self.debtorsFilter[indexPath.row]
+        
         self.txtSearchDebtor.resignFirstResponder()
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        guard let id = self.debtorsFilter[indexPath.row].id else {
+            return nil
+        }
+        
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Xoá") { (rowAction, indexPath) in
+            
             self.loading.showLoadingDialog(self)
-            DebtServices.shared.deleteDebtor(with: self.debtorsFilter[indexPath.row].id, completionHandler: { (error) in
+            DebtServices.shared.deleteDebtor(with: id, completionHandler: { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
                     self.showAlert(error, title: "Xoá thất bại", buttons: nil)
-                }
-                
-                self.debtorsFilter.remove(at: indexPath.row)
-                self.debtors.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                }                
             })
         }
         
         let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal, title: "Sửa") { (rowAction, indexPath) in
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddDebtorVC") as? AddDebtorVC {
                 vc.title = "Sửa người nợ"
-                vc.isEditDebtor = true
-                vc.idDebtor = self.debtorsFilter[indexPath.row].id
-                vc.debtorEdit = self.debtorsFilter[indexPath.row]
+                vc.debtor = self.debtorsFilter[indexPath.row]
+                vc.delegate = self
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
         return [deleteAction, editAction]
     }
-    
+}
+
+extension DebtsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         let deb =  self.debtors.filter({ (debtor) -> Bool in
@@ -177,5 +188,25 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource, UISearchBarDelega
         
         self.debtorsFilter = searchText.isEmpty ? self.debtors : deb
         self.tblDebtors.reloadData()
+    }
+}
+
+extension DebtsVC: DebtorDelegate {
+    func addDebtor(with debtor: DebtorObject, _ completed: @escaping (_ error: String?) -> Void) -> Void {
+        DebtServices.shared.addDebtor(with: debtor) { (error) in
+            completed(error)
+        }
+    }
+    
+    func editDebtor(with debtor: DebtorObject, _ completed: @escaping (_ error: String?) -> Void) -> Void {
+        DebtServices.shared.editDebtor(with: debtor) { (error) in
+            completed(error)
+        }
+    }
+    
+    func deleteDebtor(withId id: String) -> Void {
+        DebtServices.shared.deleteDebtor(with: id) { (error) in
+            
+        }
     }
 }

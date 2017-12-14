@@ -11,12 +11,6 @@ import UIKit
 
 extension UIViewController {
     
-    func showStoryBoard(_ vc: UIViewController?) {
-        if let vc = vc {
-            present(vc, animated: true, completion: nil)
-        }
-    }
-    
     func showAlert(_ message:String, title: String, buttons: [UIAlertAction]?) {
         let alert:UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -27,8 +21,18 @@ extension UIViewController {
         } else {
             alert.addAction(.init(title: "Okay", style: .default, handler: nil))
         }
-        
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    //dismiss keyboard
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
 }

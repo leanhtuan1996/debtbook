@@ -13,13 +13,10 @@ extension Data {
     func toDictionary() -> [String: Any]? {
         
         do {
-            if let json = try JSONSerialization.jsonObject(with: self, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
-                return json
-            }
+            return try JSONSerialization.jsonObject(with: self, options: []) as? [String: Any]
         } catch {
             print(error.localizedDescription)
         }
         return nil        
     }
-
 }

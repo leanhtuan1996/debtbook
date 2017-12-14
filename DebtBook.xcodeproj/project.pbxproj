@@ -7,22 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17070C8E1FE0FD6F003D98AC /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17070C8D1FE0FD6F003D98AC /* InternetManager.swift */; };
+		17070C921FE113CD003D98AC /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17070C911FE113CD003D98AC /* UserManager.swift */; };
+		17A4DAE71FE2149F0093817B /* Extensions+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DADB1FE2149F0093817B /* Extensions+Data.swift */; };
+		17A4DAE81FE2149F0093817B /* Extensions+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DADC1FE2149F0093817B /* Extensions+Date.swift */; };
+		17A4DAE91FE2149F0093817B /* Extensions+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DADD1FE2149F0093817B /* Extensions+Double.swift */; };
+		17A4DAEA1FE2149F0093817B /* Extensions+HTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DADE1FE2149F0093817B /* Extensions+HTTPURLResponse.swift */; };
+		17A4DAEB1FE2149F0093817B /* Extensions+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DADF1FE2149F0093817B /* Extensions+Int.swift */; };
+		17A4DAEC1FE2149F0093817B /* Extensions+NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAE01FE2149F0093817B /* Extensions+NSError.swift */; };
+		17A4DAED1FE2149F0093817B /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAE11FE2149F0093817B /* Extensions+String.swift */; };
+		17A4DAEE1FE2149F0093817B /* Extensions+UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAE21FE2149F0093817B /* Extensions+UIActivityIndicatorView.swift */; };
+		17A4DAEF1FE2149F0093817B /* Extensions+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAE31FE2149F0093817B /* Extensions+UIImage.swift */; };
+		17A4DAF11FE2149F0093817B /* Extensions+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAE51FE2149F0093817B /* Extensions+UINavigationController.swift */; };
+		17A4DAF21FE2149F0093817B /* Extensions+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAE61FE2149F0093817B /* Extensions+UIViewController.swift */; };
+		17A4DAF91FE24E1E0093817B /* DetailDebtorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAF81FE24E1E0093817B /* DetailDebtorProtocol.swift */; };
+		17A4DAFB1FE263F70093817B /* DebtorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DAFA1FE263F70093817B /* DebtorProtocol.swift */; };
+		17D7ED2C1FE0D8490014F9DA /* DebtorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D7ED2B1FE0D8490014F9DA /* DebtorObject.swift */; };
+		17D7ED301FE0DDBD0014F9DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED2F1FE0DDBD0014F9DA /* GoogleService-Info.plist */; };
+		17D7ED321FE0DE030014F9DA /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D7ED311FE0DE030014F9DA /* LaunchVC.swift */; };
+		17D7ED341FE0E1DE0014F9DA /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D7ED331FE0E1DE0014F9DA /* UserServices.swift */; };
+		17D7ED3A1FE0E6560014F9DA /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D7ED381FE0E6560014F9DA /* SignInVC.swift */; };
+		17D7ED3B1FE0E6560014F9DA /* SignInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED391FE0E6560014F9DA /* SignInVC.xib */; };
+		17D7ED3E1FE0E6650014F9DA /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D7ED3C1FE0E6650014F9DA /* SignUpVC.swift */; };
+		17D7ED3F1FE0E6650014F9DA /* SignUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED3D1FE0E6650014F9DA /* SignUpVC.xib */; };
+		17D7ED4A1FE0EB220014F9DA /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED421FE0EB220014F9DA /* Ubuntu-Medium.ttf */; };
+		17D7ED4B1FE0EB220014F9DA /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED431FE0EB220014F9DA /* Ubuntu-LightItalic.ttf */; };
+		17D7ED4C1FE0EB220014F9DA /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED441FE0EB220014F9DA /* Ubuntu-Regular.ttf */; };
+		17D7ED4D1FE0EB220014F9DA /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED451FE0EB220014F9DA /* Ubuntu-Bold.ttf */; };
+		17D7ED4E1FE0EB220014F9DA /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED461FE0EB220014F9DA /* Ubuntu-MediumItalic.ttf */; };
+		17D7ED4F1FE0EB220014F9DA /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED471FE0EB220014F9DA /* Ubuntu-BoldItalic.ttf */; };
+		17D7ED501FE0EB220014F9DA /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED481FE0EB220014F9DA /* Ubuntu-Italic.ttf */; };
+		17D7ED511FE0EB220014F9DA /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17D7ED491FE0EB220014F9DA /* Ubuntu-Light.ttf */; };
 		29CEC6A29B6B831042D5A735 /* Pods_DebtBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3631B8AC456CEBCC1FF50708 /* Pods_DebtBook.framework */; };
 		360511F01FBC7D6500BF3F07 /* DebtorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511EE1FBC7D6500BF3F07 /* DebtorCell.swift */; };
 		360511F11FBC7D6500BF3F07 /* DebtorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360511EF1FBC7D6500BF3F07 /* DebtorCell.xib */; };
-		360511F31FBC7F2300BF3F07 /* DebtorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F21FBC7F2300BF3F07 /* DebtorObject.swift */; };
 		360511F51FBC82CA00BF3F07 /* DebtsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F41FBC82CA00BF3F07 /* DebtsRouter.swift */; };
 		360511F71FBC851400BF3F07 /* DebtServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F61FBC851400BF3F07 /* DebtServices.swift */; };
-		360512031FBC866300BF3F07 /* Extensions+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511F91FBC866300BF3F07 /* Extensions+Data.swift */; };
-		360512041FBC866300BF3F07 /* Extensions+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FA1FBC866300BF3F07 /* Extensions+Date.swift */; };
-		360512051FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FB1FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift */; };
-		360512061FBC866300BF3F07 /* Extensions+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FC1FBC866300BF3F07 /* Extensions+Int.swift */; };
-		360512071FBC866300BF3F07 /* Extensions+NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FD1FBC866300BF3F07 /* Extensions+NSError.swift */; };
-		360512081FBC866300BF3F07 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FE1FBC866300BF3F07 /* Extensions+String.swift */; };
-		360512091FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360511FF1FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift */; };
-		3605120A1FBC866300BF3F07 /* Extensions+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512001FBC866300BF3F07 /* Extensions+UIImageView.swift */; };
-		3605120B1FBC866300BF3F07 /* Extensions+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512011FBC866300BF3F07 /* Extensions+UINavigationController.swift */; };
-		3605120C1FBC866300BF3F07 /* Extensions+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */; };
 		3605120E1FBC868000BF3F07 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605120D1FBC868000BF3F07 /* Helpers.swift */; };
 		360512101FBC9E3E00BF3F07 /* DetailDebtorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */; };
 		360512131FBCA90C00BF3F07 /* DetailsDebtorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360512121FBCA90C00BF3F07 /* DetailsDebtorVC.swift */; };
@@ -44,21 +64,41 @@
 
 /* Begin PBXFileReference section */
 		0966BD5B0B1DA0DC24D0DCA9 /* Pods-DebtBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DebtBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-DebtBook/Pods-DebtBook.release.xcconfig"; sourceTree = "<group>"; };
+		17070C8D1FE0FD6F003D98AC /* InternetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetManager.swift; sourceTree = "<group>"; };
+		17070C911FE113CD003D98AC /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		17A4DADB1FE2149F0093817B /* Extensions+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Data.swift"; sourceTree = "<group>"; };
+		17A4DADC1FE2149F0093817B /* Extensions+Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Date.swift"; sourceTree = "<group>"; };
+		17A4DADD1FE2149F0093817B /* Extensions+Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Double.swift"; sourceTree = "<group>"; };
+		17A4DADE1FE2149F0093817B /* Extensions+HTTPURLResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+HTTPURLResponse.swift"; sourceTree = "<group>"; };
+		17A4DADF1FE2149F0093817B /* Extensions+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Int.swift"; sourceTree = "<group>"; };
+		17A4DAE01FE2149F0093817B /* Extensions+NSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+NSError.swift"; sourceTree = "<group>"; };
+		17A4DAE11FE2149F0093817B /* Extensions+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
+		17A4DAE21FE2149F0093817B /* Extensions+UIActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIActivityIndicatorView.swift"; sourceTree = "<group>"; };
+		17A4DAE31FE2149F0093817B /* Extensions+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIImage.swift"; sourceTree = "<group>"; };
+		17A4DAE51FE2149F0093817B /* Extensions+UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UINavigationController.swift"; sourceTree = "<group>"; };
+		17A4DAE61FE2149F0093817B /* Extensions+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIViewController.swift"; sourceTree = "<group>"; };
+		17A4DAF81FE24E1E0093817B /* DetailDebtorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDebtorProtocol.swift; sourceTree = "<group>"; };
+		17A4DAFA1FE263F70093817B /* DebtorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtorProtocol.swift; sourceTree = "<group>"; };
+		17D7ED2B1FE0D8490014F9DA /* DebtorObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtorObject.swift; sourceTree = "<group>"; };
+		17D7ED2F1FE0DDBD0014F9DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		17D7ED311FE0DE030014F9DA /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
+		17D7ED331FE0E1DE0014F9DA /* UserServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		17D7ED381FE0E6560014F9DA /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		17D7ED391FE0E6560014F9DA /* SignInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInVC.xib; sourceTree = "<group>"; };
+		17D7ED3C1FE0E6650014F9DA /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		17D7ED3D1FE0E6650014F9DA /* SignUpVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpVC.xib; sourceTree = "<group>"; };
+		17D7ED421FE0EB220014F9DA /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Medium.ttf"; sourceTree = "<group>"; };
+		17D7ED431FE0EB220014F9DA /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; };
+		17D7ED441FE0EB220014F9DA /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
+		17D7ED451FE0EB220014F9DA /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
+		17D7ED461FE0EB220014F9DA /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; };
+		17D7ED471FE0EB220014F9DA /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
+		17D7ED481FE0EB220014F9DA /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Italic.ttf"; sourceTree = "<group>"; };
+		17D7ED491FE0EB220014F9DA /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Light.ttf"; sourceTree = "<group>"; };
 		360511EE1FBC7D6500BF3F07 /* DebtorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtorCell.swift; sourceTree = "<group>"; };
 		360511EF1FBC7D6500BF3F07 /* DebtorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DebtorCell.xib; sourceTree = "<group>"; };
-		360511F21FBC7F2300BF3F07 /* DebtorObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtorObject.swift; sourceTree = "<group>"; };
 		360511F41FBC82CA00BF3F07 /* DebtsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtsRouter.swift; sourceTree = "<group>"; };
 		360511F61FBC851400BF3F07 /* DebtServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtServices.swift; sourceTree = "<group>"; };
-		360511F91FBC866300BF3F07 /* Extensions+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Data.swift"; sourceTree = "<group>"; };
-		360511FA1FBC866300BF3F07 /* Extensions+Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Date.swift"; sourceTree = "<group>"; };
-		360511FB1FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+HTTPURLResponse.swift"; sourceTree = "<group>"; };
-		360511FC1FBC866300BF3F07 /* Extensions+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Int.swift"; sourceTree = "<group>"; };
-		360511FD1FBC866300BF3F07 /* Extensions+NSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+NSError.swift"; sourceTree = "<group>"; };
-		360511FE1FBC866300BF3F07 /* Extensions+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
-		360511FF1FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIActivityIndicatorView.swift"; sourceTree = "<group>"; };
-		360512001FBC866300BF3F07 /* Extensions+UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIImageView.swift"; sourceTree = "<group>"; };
-		360512011FBC866300BF3F07 /* Extensions+UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UINavigationController.swift"; sourceTree = "<group>"; };
-		360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIViewController.swift"; sourceTree = "<group>"; };
 		3605120D1FBC868000BF3F07 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDebtorObject.swift; sourceTree = "<group>"; };
 		360512121FBCA90C00BF3F07 /* DetailsDebtorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsDebtorVC.swift; sourceTree = "<group>"; };
@@ -100,6 +140,58 @@
 				0966BD5B0B1DA0DC24D0DCA9 /* Pods-DebtBook.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		17A4DAF71FE24DEB0093817B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				17A4DAF81FE24E1E0093817B /* DetailDebtorProtocol.swift */,
+				17A4DAFA1FE263F70093817B /* DebtorProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		17D7ECD31FDFA4060014F9DA /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				17070C8D1FE0FD6F003D98AC /* InternetManager.swift */,
+				17070C911FE113CD003D98AC /* UserManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		17D7ED371FE0E5AC0014F9DA /* SignIn+SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				17D7ED381FE0E6560014F9DA /* SignInVC.swift */,
+				17D7ED391FE0E6560014F9DA /* SignInVC.xib */,
+				17D7ED3C1FE0E6650014F9DA /* SignUpVC.swift */,
+				17D7ED3D1FE0E6650014F9DA /* SignUpVC.xib */,
+			);
+			path = "SignIn+SignUp";
+			sourceTree = "<group>";
+		};
+		17D7ED401FE0EB220014F9DA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				17D7ED411FE0EB220014F9DA /* Ubuntu */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		17D7ED411FE0EB220014F9DA /* Ubuntu */ = {
+			isa = PBXGroup;
+			children = (
+				17D7ED421FE0EB220014F9DA /* Ubuntu-Medium.ttf */,
+				17D7ED431FE0EB220014F9DA /* Ubuntu-LightItalic.ttf */,
+				17D7ED441FE0EB220014F9DA /* Ubuntu-Regular.ttf */,
+				17D7ED451FE0EB220014F9DA /* Ubuntu-Bold.ttf */,
+				17D7ED461FE0EB220014F9DA /* Ubuntu-MediumItalic.ttf */,
+				17D7ED471FE0EB220014F9DA /* Ubuntu-BoldItalic.ttf */,
+				17D7ED481FE0EB220014F9DA /* Ubuntu-Italic.ttf */,
+				17D7ED491FE0EB220014F9DA /* Ubuntu-Light.ttf */,
+			);
+			path = Ubuntu;
 			sourceTree = "<group>";
 		};
 		360511ED1FBC7D4B00BF3F07 /* DebtorCell */ = {
@@ -225,11 +317,12 @@
 		36EB185B1FBC3435002924D1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				17A4DAF71FE24DEB0093817B /* Protocols */,
+				17D7ECD31FDFA4060014F9DA /* Managers */,
 				360511F81FBC863800BF3F07 /* Helpers */,
 				36EB185C1FBC3435002924D1 /* Apps */,
 				36EB185E1FBC3435002924D1 /* Extensions */,
 				36EB185F1FBC3435002924D1 /* Models */,
-				36EB18601FBC3435002924D1 /* Protocols */,
 				36EB18611FBC3435002924D1 /* Routers */,
 				36EB18621FBC3435002924D1 /* Services */,
 				36EB18631FBC3435002924D1 /* UIs */,
@@ -241,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				36EB185D1FBC3435002924D1 /* AppDelegate.swift */,
+				17D7ED311FE0DE030014F9DA /* LaunchVC.swift */,
 			);
 			path = Apps;
 			sourceTree = "<group>";
@@ -248,16 +342,17 @@
 		36EB185E1FBC3435002924D1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				360511F91FBC866300BF3F07 /* Extensions+Data.swift */,
-				360511FA1FBC866300BF3F07 /* Extensions+Date.swift */,
-				360511FB1FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift */,
-				360511FC1FBC866300BF3F07 /* Extensions+Int.swift */,
-				360511FD1FBC866300BF3F07 /* Extensions+NSError.swift */,
-				360511FE1FBC866300BF3F07 /* Extensions+String.swift */,
-				360511FF1FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift */,
-				360512001FBC866300BF3F07 /* Extensions+UIImageView.swift */,
-				360512011FBC866300BF3F07 /* Extensions+UINavigationController.swift */,
-				360512021FBC866300BF3F07 /* Extensions+UIViewController.swift */,
+				17A4DADB1FE2149F0093817B /* Extensions+Data.swift */,
+				17A4DADC1FE2149F0093817B /* Extensions+Date.swift */,
+				17A4DADD1FE2149F0093817B /* Extensions+Double.swift */,
+				17A4DADE1FE2149F0093817B /* Extensions+HTTPURLResponse.swift */,
+				17A4DADF1FE2149F0093817B /* Extensions+Int.swift */,
+				17A4DAE01FE2149F0093817B /* Extensions+NSError.swift */,
+				17A4DAE11FE2149F0093817B /* Extensions+String.swift */,
+				17A4DAE21FE2149F0093817B /* Extensions+UIActivityIndicatorView.swift */,
+				17A4DAE31FE2149F0093817B /* Extensions+UIImage.swift */,
+				17A4DAE51FE2149F0093817B /* Extensions+UINavigationController.swift */,
+				17A4DAE61FE2149F0093817B /* Extensions+UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -265,17 +360,10 @@
 		36EB185F1FBC3435002924D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				360511F21FBC7F2300BF3F07 /* DebtorObject.swift */,
+				17D7ED2B1FE0D8490014F9DA /* DebtorObject.swift */,
 				3605120F1FBC9E3E00BF3F07 /* DetailDebtorObject.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		36EB18601FBC3435002924D1 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		36EB18611FBC3435002924D1 /* Routers */ = {
@@ -290,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				360511F61FBC851400BF3F07 /* DebtServices.swift */,
+				17D7ED331FE0E1DE0014F9DA /* UserServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -297,6 +386,7 @@
 		36EB18631FBC3435002924D1 /* UIs */ = {
 			isa = PBXGroup;
 			children = (
+				17D7ED371FE0E5AC0014F9DA /* SignIn+SignUp */,
 				364AB9501FBC42610069898D /* Debts */,
 			);
 			path = UIs;
@@ -305,6 +395,7 @@
 		36EB18651FBC3435002924D1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				17D7ED401FE0EB220014F9DA /* Fonts */,
 				36EB18661FBC3435002924D1 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -322,6 +413,7 @@
 		36EB186A1FBC3435002924D1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				17D7ED2F1FE0DDBD0014F9DA /* GoogleService-Info.plist */,
 				36EB186B1FBC3435002924D1 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -398,13 +490,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17D7ED511FE0EB220014F9DA /* Ubuntu-Light.ttf in Resources */,
+				17D7ED4F1FE0EB220014F9DA /* Ubuntu-BoldItalic.ttf in Resources */,
+				17D7ED3B1FE0E6560014F9DA /* SignInVC.xib in Resources */,
+				17D7ED4B1FE0EB220014F9DA /* Ubuntu-LightItalic.ttf in Resources */,
+				17D7ED3F1FE0E6650014F9DA /* SignUpVC.xib in Resources */,
+				17D7ED4A1FE0EB220014F9DA /* Ubuntu-Medium.ttf in Resources */,
 				3605123C1FBD529B00BF3F07 /* Main.storyboard in Resources */,
+				17D7ED4D1FE0EB220014F9DA /* Ubuntu-Bold.ttf in Resources */,
 				3605121A1FBCA99C00BF3F07 /* DetailsDebtorCell.xib in Resources */,
+				17D7ED301FE0DDBD0014F9DA /* GoogleService-Info.plist in Resources */,
 				36EB18711FBC3435002924D1 /* Info.plist in Resources */,
 				360512421FBD557A00BF3F07 /* Localizable.strings in Resources */,
+				17D7ED4E1FE0EB220014F9DA /* Ubuntu-MediumItalic.ttf in Resources */,
 				36EB186E1FBC3435002924D1 /* Assets.xcassets in Resources */,
+				17D7ED501FE0EB220014F9DA /* Ubuntu-Italic.ttf in Resources */,
 				36EB186F1FBC3435002924D1 /* LaunchScreen.storyboard in Resources */,
 				360511F11FBC7D6500BF3F07 /* DebtorCell.xib in Resources */,
+				17D7ED4C1FE0EB220014F9DA /* Ubuntu-Regular.ttf in Resources */,
 				360DF43B1FBDE8CA00BC04B2 /* DistrictCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,12 +523,38 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DebtBook/Pods-DebtBook-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -472,30 +601,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17070C8E1FE0FD6F003D98AC /* InternetManager.swift in Sources */,
+				17A4DAE81FE2149F0093817B /* Extensions+Date.swift in Sources */,
 				360DF4361FBDDFDC00BC04B2 /* SelectDistrictsVC.swift in Sources */,
 				360511F71FBC851400BF3F07 /* DebtServices.swift in Sources */,
-				360512041FBC866300BF3F07 /* Extensions+Date.swift in Sources */,
-				3605120A1FBC866300BF3F07 /* Extensions+UIImageView.swift in Sources */,
-				360511F31FBC7F2300BF3F07 /* DebtorObject.swift in Sources */,
 				36EB186C1FBC3435002924D1 /* AppDelegate.swift in Sources */,
-				360512031FBC866300BF3F07 /* Extensions+Data.swift in Sources */,
-				360512071FBC866300BF3F07 /* Extensions+NSError.swift in Sources */,
+				17A4DAEE1FE2149F0093817B /* Extensions+UIActivityIndicatorView.swift in Sources */,
+				17A4DAED1FE2149F0093817B /* Extensions+String.swift in Sources */,
+				17A4DAEF1FE2149F0093817B /* Extensions+UIImage.swift in Sources */,
 				360512101FBC9E3E00BF3F07 /* DetailDebtorObject.swift in Sources */,
-				360512061FBC866300BF3F07 /* Extensions+Int.swift in Sources */,
-				360512091FBC866300BF3F07 /* Extensions+UIActivityIndicatorView.swift in Sources */,
+				17070C921FE113CD003D98AC /* UserManager.swift in Sources */,
+				17D7ED2C1FE0D8490014F9DA /* DebtorObject.swift in Sources */,
 				360511F51FBC82CA00BF3F07 /* DebtsRouter.swift in Sources */,
+				17D7ED3E1FE0E6650014F9DA /* SignUpVC.swift in Sources */,
 				3605120E1FBC868000BF3F07 /* Helpers.swift in Sources */,
-				360512081FBC866300BF3F07 /* Extensions+String.swift in Sources */,
+				17A4DAEC1FE2149F0093817B /* Extensions+NSError.swift in Sources */,
+				17D7ED341FE0E1DE0014F9DA /* UserServices.swift in Sources */,
 				360DF4331FBDAA7E00BC04B2 /* AddDebtorVC.swift in Sources */,
 				360511F01FBC7D6500BF3F07 /* DebtorCell.swift in Sources */,
-				3605120C1FBC866300BF3F07 /* Extensions+UIViewController.swift in Sources */,
+				17D7ED321FE0DE030014F9DA /* LaunchVC.swift in Sources */,
 				3668FC061FBE879000FB15BD /* AddDetailVC.swift in Sources */,
-				3605120B1FBC866300BF3F07 /* Extensions+UINavigationController.swift in Sources */,
+				17A4DAEA1FE2149F0093817B /* Extensions+HTTPURLResponse.swift in Sources */,
+				17A4DAFB1FE263F70093817B /* DebtorProtocol.swift in Sources */,
 				360512191FBCA99C00BF3F07 /* DetailsDebtorCell.swift in Sources */,
+				17A4DAE91FE2149F0093817B /* Extensions+Double.swift in Sources */,
 				360DF43A1FBDE8CA00BC04B2 /* DistrictCell.swift in Sources */,
+				17A4DAEB1FE2149F0093817B /* Extensions+Int.swift in Sources */,
+				17A4DAE71FE2149F0093817B /* Extensions+Data.swift in Sources */,
+				17A4DAF91FE24E1E0093817B /* DetailDebtorProtocol.swift in Sources */,
 				360512131FBCA90C00BF3F07 /* DetailsDebtorVC.swift in Sources */,
-				360512051FBC866300BF3F07 /* Extensions+HTTPURLResponse.swift in Sources */,
+				17A4DAF21FE2149F0093817B /* Extensions+UIViewController.swift in Sources */,
+				17A4DAF11FE2149F0093817B /* Extensions+UINavigationController.swift in Sources */,
 				364AB9521FBC428D0069898D /* DebtsVC.swift in Sources */,
+				17D7ED3A1FE0E6560014F9DA /* SignInVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
