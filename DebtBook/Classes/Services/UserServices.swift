@@ -7,11 +7,12 @@
 //
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class UserServices: NSObject {
     static let shared = UserServices()
     
-    var currentUser: User?
+    var currentUser: User?    
     
     //ref User child
     static let refUser = Firestore.firestore().collection("Users")
@@ -63,5 +64,20 @@ class UserServices: NSObject {
         {
             print(error.localizedDescription)
         }
+    }
+    
+    func confirmPassword(with currentPassword: String, _ completionHandler: @escaping (_ isMatched: Bool) -> Void) {
+        guard let currentEmail = Auth.auth().currentUser?.email else {
+            return completionHandler(false)
+        }
+        
+        let credential = EmailAuthProvider.credential(withEmail: currentEmail, password: currentPassword)
+        
+        Auth.auth().currentUser?.reauthenticate(with: credential, completion: { (error) in
+            if error != nil {
+                return completionHandler(false)
+            }
+            return completionHandler(true)
+        })
     }
 }

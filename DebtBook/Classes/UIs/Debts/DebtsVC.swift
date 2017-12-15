@@ -158,6 +158,18 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
         
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Xoá") { (rowAction, indexPath) in
             
+            let vc = VerifyPasswordVC()
+            vc.view.frame = self.view.frame
+            vc.view.tag = 99
+            vc.delegateDebtor = self
+            vc.id = id
+            self.addChildViewController(vc)
+            self.view.addSubview(vc.view)
+            self.didMove(toParentViewController: vc)
+            
+            /*
+             
+            
             self.loading.showLoadingDialog(self)
             DebtServices.shared.deleteDebtor(with: id, completionHandler: { (error) in
                 self.loading.stopAnimating()
@@ -165,6 +177,8 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
                     self.showAlert(error, title: "Xoá thất bại", buttons: nil)
                 }                
             })
+ 
+             */
         }
         
         let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal, title: "Sửa") { (rowAction, indexPath) in
@@ -204,9 +218,9 @@ extension DebtsVC: DebtorDelegate {
         }
     }
     
-    func deleteDebtor(withId id: String) -> Void {
+    func deleteDebtor(withId id: String, _ completed: @escaping (String?) -> Void) {
         DebtServices.shared.deleteDebtor(with: id) { (error) in
-            
+            completed(error)
         }
     }
 }

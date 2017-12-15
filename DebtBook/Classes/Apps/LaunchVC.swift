@@ -14,7 +14,7 @@ class LaunchVC: UIViewController {
         super.viewDidLoad()
         
         //UserServices.shared.signOut()
-        UserManager.shared.logOutAsGuest()
+        //UserManager.shared.logOutAsGuest()
 
         //to checking for sign in, sign up and etc...
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -24,12 +24,12 @@ class LaunchVC: UIViewController {
         if UserManager.shared.isAnonymousLoggedIn() {
             appDelegate.showMainView()
             return
-        }        
-        
-        if UserServices.shared.isLoggedIn() {
-            appDelegate.showMainView()
-        } else {
-            appDelegate.showSignInView()
+        } else  {
+            if UserServices.shared.isLoggedIn() {
+                appDelegate.showMainView()
+            } else {
+                appDelegate.showSignInView()
+            }
         }
     }
 }

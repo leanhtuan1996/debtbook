@@ -58,10 +58,6 @@ class AddDetailVC: UIViewController {
         }) { (finished) in
             if finished
             {
-                //if let vc = self.parent as? DetailsDebtorVC {
-                //    vc.didMove(toParentViewController: self)
-                //}
-                
                 self.willMove(toParentViewController: nil)
                 self.view.removeFromSuperview()
                 self.removeFromParentViewController()

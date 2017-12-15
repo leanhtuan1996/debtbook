@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17056CCC1FE2BC9A008A3340 /* VerifyPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17056CCA1FE2BC9A008A3340 /* VerifyPasswordVC.swift */; };
+		17056CCD1FE2BC9A008A3340 /* VerifyPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17056CCB1FE2BC9A008A3340 /* VerifyPasswordVC.xib */; };
+		17056CCF1FE3803F008A3340 /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17056CCE1FE3803F008A3340 /* AuthenticationProtocol.swift */; };
 		17070C8E1FE0FD6F003D98AC /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17070C8D1FE0FD6F003D98AC /* InternetManager.swift */; };
 		17070C921FE113CD003D98AC /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17070C911FE113CD003D98AC /* UserManager.swift */; };
 		17A4DAE71FE2149F0093817B /* Extensions+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A4DADB1FE2149F0093817B /* Extensions+Data.swift */; };
@@ -64,6 +67,9 @@
 
 /* Begin PBXFileReference section */
 		0966BD5B0B1DA0DC24D0DCA9 /* Pods-DebtBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DebtBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-DebtBook/Pods-DebtBook.release.xcconfig"; sourceTree = "<group>"; };
+		17056CCA1FE2BC9A008A3340 /* VerifyPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyPasswordVC.swift; sourceTree = "<group>"; };
+		17056CCB1FE2BC9A008A3340 /* VerifyPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyPasswordVC.xib; sourceTree = "<group>"; };
+		17056CCE1FE3803F008A3340 /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
 		17070C8D1FE0FD6F003D98AC /* InternetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetManager.swift; sourceTree = "<group>"; };
 		17070C911FE113CD003D98AC /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		17A4DADB1FE2149F0093817B /* Extensions+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+Data.swift"; sourceTree = "<group>"; };
@@ -142,11 +148,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		17056CC51FE2BC5D008A3340 /* VerifyAuth */ = {
+			isa = PBXGroup;
+			children = (
+				17056CCA1FE2BC9A008A3340 /* VerifyPasswordVC.swift */,
+				17056CCB1FE2BC9A008A3340 /* VerifyPasswordVC.xib */,
+			);
+			path = VerifyAuth;
+			sourceTree = "<group>";
+		};
 		17A4DAF71FE24DEB0093817B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				17A4DAF81FE24E1E0093817B /* DetailDebtorProtocol.swift */,
 				17A4DAFA1FE263F70093817B /* DebtorProtocol.swift */,
+				17056CCE1FE3803F008A3340 /* AuthenticationProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -386,6 +402,7 @@
 		36EB18631FBC3435002924D1 /* UIs */ = {
 			isa = PBXGroup;
 			children = (
+				17056CC51FE2BC5D008A3340 /* VerifyAuth */,
 				17D7ED371FE0E5AC0014F9DA /* SignIn+SignUp */,
 				364AB9501FBC42610069898D /* Debts */,
 			);
@@ -496,6 +513,7 @@
 				17D7ED4B1FE0EB220014F9DA /* Ubuntu-LightItalic.ttf in Resources */,
 				17D7ED3F1FE0E6650014F9DA /* SignUpVC.xib in Resources */,
 				17D7ED4A1FE0EB220014F9DA /* Ubuntu-Medium.ttf in Resources */,
+				17056CCD1FE2BC9A008A3340 /* VerifyPasswordVC.xib in Resources */,
 				3605123C1FBD529B00BF3F07 /* Main.storyboard in Resources */,
 				17D7ED4D1FE0EB220014F9DA /* Ubuntu-Bold.ttf in Resources */,
 				3605121A1FBCA99C00BF3F07 /* DetailsDebtorCell.xib in Resources */,
@@ -607,6 +625,8 @@
 				360511F71FBC851400BF3F07 /* DebtServices.swift in Sources */,
 				36EB186C1FBC3435002924D1 /* AppDelegate.swift in Sources */,
 				17A4DAEE1FE2149F0093817B /* Extensions+UIActivityIndicatorView.swift in Sources */,
+				17056CCF1FE3803F008A3340 /* AuthenticationProtocol.swift in Sources */,
+				17056CCC1FE2BC9A008A3340 /* VerifyPasswordVC.swift in Sources */,
 				17A4DAED1FE2149F0093817B /* Extensions+String.swift in Sources */,
 				17A4DAEF1FE2149F0093817B /* Extensions+UIImage.swift in Sources */,
 				360512101FBC9E3E00BF3F07 /* DetailDebtorObject.swift in Sources */,

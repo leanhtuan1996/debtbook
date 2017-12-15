@@ -9,5 +9,5 @@
 protocol DebtorDelegate {
     func addDebtor(with debtor: DebtorObject, _ completed: @escaping (_ error: String?) -> Void) -> Void
     func editDebtor(with debtor: DebtorObject, _ completed: @escaping (_ error: String?) -> Void) -> Void
-    func deleteDebtor(withId id: String) -> Void
+    func deleteDebtor(withId id: String, _ completed: @escaping (_ error: String?) -> Void) -> Void
 }

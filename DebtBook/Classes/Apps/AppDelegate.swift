@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //enable offline database
         Firestore.firestore().settings.isPersistenceEnabled = true
         
+        Auth.auth().useAppLanguage()
+        
         //checking network
         
         

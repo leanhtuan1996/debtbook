@@ -19,6 +19,7 @@ class DetailsDebtorVC: UIViewController {
     var checkBorrow = 1
     var checkPayment = 0
     var refresh = UIRefreshControl()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,8 +130,6 @@ class DetailsDebtorVC: UIViewController {
                 return
             }
             
-            
-            
             let detail = DetailDebtorObject()
             detail.dateCreated = Date().timeIntervalSince1970.toInt()
             
@@ -147,7 +146,7 @@ class DetailsDebtorVC: UIViewController {
             })
         }
         
-        let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.cancel, handler: nil)
+        let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.destructive, handler: nil)
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         alert.addAction(btnPayAllDebt)
@@ -249,6 +248,14 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
                 return
             }
             
+            let vc = VerifyPasswordVC()
+            vc.view.frame = self.view.frame
+            vc.delegateDetailDebtor = self
+            vc.id = idDetail
+            self.addChildViewController(vc)
+            self.view.addSubview(vc.view)
+            self.didMove(toParentViewController: vc)
+            /*
             self.loading.showLoadingDialog(self)
             DebtServices.shared.deleteDetail(withIdDebtor: id, andIdDetail: idDetail, { (error) in
                 self.loading.stopAnimating()
@@ -258,10 +265,11 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 self.dismiss(animated: true, completion: nil)
             })
+            */
             
         }
         
-        let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.cancel, handler: nil)
+        let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.destructive, handler: nil)
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
@@ -301,13 +309,14 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
                 return
             }
             
-            self.loading.showLoadingDialog(self)
-            self.deleteDetail(withId: idDetail, { (error) in
-                self.loading.stopAnimating()
-                if let error = error {
-                    self.showAlert(error, title: "Đã xảy ra lỗi trong quá trình xoá", buttons: nil)
-                }
-            })
+            let vc = VerifyPasswordVC()
+            vc.view.frame = self.view.frame
+            vc.delegateDetailDebtor = self
+            vc.id = idDetail
+            self.addChildViewController(vc)
+            self.view.addSubview(vc.view)
+            self.didMove(toParentViewController: vc)
+            
         }
         return [deleteAction]
     }
