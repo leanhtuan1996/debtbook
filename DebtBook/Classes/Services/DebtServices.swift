@@ -20,7 +20,7 @@ class DebtServices: NSObject {
     
     let settings = Firestore.firestore()
     
-    func getDebtors(_ completionHandler: @escaping (_ debtors: [DebtorObject]?, _ error: String?) -> Void ) {
+    func getDebtors(isListen listen: Bool = true, _ completionHandler: @escaping (_ debtors: [DebtorObject]?, _ error: String?) -> Void ) {
         
         if UserManager.shared.isAnonymousLoggedIn() {
             //fetch all data in local database
@@ -30,108 +30,58 @@ class DebtServices: NSObject {
                 return completionHandler([], "User not found")
             }
             
-            refDebtor.whereField("idUser", isEqualTo: id).addSnapshotListener({ (snapshot, error) in
-                if let error = error {
-                    return completionHandler([], error.localizedDescription)
-                }
-                
-                guard let snapshot = snapshot else {
-                    return completionHandler([], "Data snapshot is missing!")
-                }
-                
-                if snapshot.documents.count == 0 {
-                    return completionHandler([], "Data received are empty")
-                }
-                
-                var debtors = [DebtorObject]()
-                
-                
-                //fetch data json to object of array and return array
-                snapshot.documents.forEach({ (document) in
-                    if let debtor = DebtorObject().fromJSON(json: document.data()) {
-                        debtors.append(debtor)
-                    }
-                })
-                
-                return completionHandler(debtors, nil)
-            })
-            /*
-            refDebtor.whereField("idUser", isEqualTo: id).getDocuments(completion: { (snapshot, error) in
-                if let error = error {
-                    return completionHandler([], error.localizedDescription)
-                }
-                
-                guard let snapshot = snapshot else {
-                    return completionHandler([], "Data snapshot is missing!")
-                }
-                
-                if snapshot.documents.count == 0 {
-                    return completionHandler([], "Data received are empty")
-                }
-                
-                var debtors = [DebtorObject]()
-                
-                //fetch data json to object of array and return array
-                snapshot.documents.forEach({ (document) in
-                    if let debtor = DebtorObject().fromJSON(json: document.data()) {
-                        debtors.append(debtor)
-                    }
-                })
-                
-                return completionHandler(debtors, nil)
-            })
- */
-        }
-    }
-    
-    func getDebtor(with id: String , completionHandler: @escaping (_ debtor: DebtorObject?, _ error: String?) -> Void ) {
-        if UserManager.shared.isAnonymousLoggedIn() {
-            
-        } else {
-            
-            refDebtor.document(id).addSnapshotListener({ (snapshot, error) in
-                if let error = error {
-                    return completionHandler(nil, error.localizedDescription)
-                }
-                
-                guard let snapshot = snapshot else {
-                    return completionHandler(nil, "Data snapshot is missing!")
-                }
-                
-                guard let debtorObject = DebtorObject().fromJSON(json: snapshot.data()) else {
-                    return completionHandler(nil, "Can not convert data to object")
-                }
-                
-                snapshot.reference.collection("details").getDocuments(completion: { (snapshot, error) in
+            if listen {
+                refDebtor.whereField("idUser", isEqualTo: id).addSnapshotListener({ (snapshot, error) in
                     if let error = error {
-                        return completionHandler(nil, error.localizedDescription)
+                        return completionHandler([], error.localizedDescription)
                     }
                     
-                    let details = List<DetailDebtorObject>()
-                    
-                    guard let detailSnapshot = snapshot else {
-                        return completionHandler(nil, "Data snapshot is missing!")
+                    guard let snapshot = snapshot else {
+                        return completionHandler([], nil)
                     }
                     
-                    let detailDocuments = detailSnapshot.documents
-                    
-                    if detailDocuments.count == 0 {
-                        return completionHandler(debtorObject, nil)
+                    if snapshot.documents.count == 0 {
+                        return completionHandler([], nil)
                     }
                     
-                    detailDocuments.forEach({ (detailData) in
-                        print(detailData)
-                        if let detail = DetailDebtorObject().fromJSON(json: detailData.data()) {
-                            details.append(detail)
+                    var debtors = [DebtorObject]()
+                    
+                    
+                    //fetch data json to object of array and return array
+                    snapshot.documents.forEach({ (document) in
+                        if let debtor = DebtorObject().fromJSON(json: document.data()) {
+                            debtors.append(debtor)
                         }
                     })
                     
-                    debtorObject.detail = details
-                    
-                    return completionHandler(debtorObject, nil)
-                    
+                    return completionHandler(debtors, nil)
                 })
-            })
+            } else {
+                refDebtor.whereField("idUser", isEqualTo: id).getDocuments(completion: { (snapshot, error) in
+                    if let error = error {
+                        return completionHandler([], error.localizedDescription)
+                    }
+                    
+                    guard let snapshot = snapshot else {
+                        return completionHandler([], "Data snapshot is missing!")
+                    }
+                    
+                    if snapshot.documents.count == 0 {
+                        return completionHandler([], "Data received are empty")
+                    }
+                    
+                    var debtors = [DebtorObject]()
+                    
+                    //fetch data json to object of array and return array
+                    snapshot.documents.forEach({ (document) in
+                        if let debtor = DebtorObject().fromJSON(json: document.data()) {
+                            debtors.append(debtor)
+                        }
+                    })
+                    
+                    return completionHandler(debtors, nil)
+                })
+            }
         }
     }
     
@@ -227,32 +177,83 @@ class DebtServices: NSObject {
         }
     }
     
-    func addDetail(withid idDebtor: String, detail: DetailDebtorObject, completionHandler: @escaping (_ error: String?) -> Void) {
+    func addDetail(with debtor: DebtorObject, detail: DetailDebtorObject, completionHandler: @escaping (_ error: String?) -> Void) {
         if UserManager.shared.isAnonymousLoggedIn() {
             
         } else {
+            
+            guard let idDebtor = debtor.id else {
+                return completionHandler("Debtor was been removed or not found")
+            }
+            
             let refDetail = refDebtor.document(idDebtor).collection("details")
             let idDetail = refDetail.document().documentID
-            
             detail.id = idDetail
+            
+            let newTotalDebit = debtor.totalDebit + detail.debt
             
             guard let detailJson = detail.toJSON() else {
                 return completionHandler("Can not convert object tot json")
             }
             
-            refDetail.document(idDetail).setData(detailJson, options: SetOptions.merge(), completion: { (error) in
-                return completionHandler(error?.localizedDescription)
-            })
+            switch InternetManager.shared.status {
+            case .notReachable, .unknown:
+                
+                refDetail.document(idDetail).setData(detailJson, options: SetOptions.merge())
+                refDebtor.document(idDebtor).setData(["totalDebit" : newTotalDebit], options: SetOptions.merge())
+                return completionHandler(nil)
+                
+            default:
+                
+                let batch = Firestore.firestore().batch()
+                
+                batch.setData(detailJson, forDocument: refDetail.document(idDetail), options: SetOptions.merge())
+                
+                batch.setData(["totalDebit" : newTotalDebit], forDocument: refDebtor.document(idDebtor), options: SetOptions.merge())
+                
+                batch.commit(completion: { (error) in
+                    return completionHandler(error?.localizedDescription)
+                })
+            }
+            
         }
     }
     
-    func deleteDetail(withIdDebtor id: String, andIdDetail idDetail: String, _ completionHandler: @escaping (_ error: String?) -> Void) {
+    func deleteDetail(with debtor: DebtorObject, and detail: DetailDebtorObject, _ completionHandler: @escaping (_ error: String?) -> Void) {
         if UserManager.shared.isAnonymousLoggedIn() {
             
         } else {
-            refDebtor.document(id).collection("details").document(idDetail).delete(completion: { (error) in
-                return completionHandler(error?.localizedDescription)
-            })
+            
+            guard let idDebtor = debtor.id, let idDetail = detail.id else {
+                return completionHandler("Debtor was been removed or not found")
+            }
+            
+            let newTotalDebit = debtor.totalDebit - detail.debt
+            
+            switch InternetManager.shared.status {
+            case .notReachable, .unknown:
+                refDebtor.document(idDebtor).collection("details").document(idDetail).delete()
+                refDebtor.document(idDebtor).setData(["totalDebit": newTotalDebit], options: SetOptions.merge())
+                return completionHandler(nil)
+            default:
+                
+                let batch = Firestore.firestore().batch()
+                
+                batch.deleteDocument(refDebtor.document(idDebtor).collection("details").document(idDetail))
+                batch.setData(["totalDebit": newTotalDebit], forDocument: refDebtor.document(idDebtor), options: SetOptions.merge())
+                
+                batch.commit(completion: { (error) in
+                    return completionHandler(error?.localizedDescription)
+                })
+            }
+        }
+    }
+    
+    func updateTotalDebit(with idDebtor: String, and totalDebit: Int) -> Void {
+        if UserManager.shared.isAnonymousLoggedIn() {
+            
+        } else {
+            refDebtor.document(idDebtor).updateData(["totalDebit": totalDebit])
         }
     }
     

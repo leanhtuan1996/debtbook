@@ -26,12 +26,13 @@ class AddDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewPopup.layer.cornerRadius = 5
-        self.txtDebit.delegate = self
+        self.viewPopup.layer.masksToBounds = false
         segSelectType.addTarget(self, action: #selector(self.changeType), for: UIControlEvents.valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         showAnimate()
+        self.txtDebit.becomeFirstResponder()
     }
     
     func showAnimate() {
@@ -109,14 +110,5 @@ class AddDetailVC: UIViewController {
     
     @IBAction func btnCancelClicked(_ sender: Any) {
         removeAnimate()
-    }
-}
-
-extension AddDetailVC: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        UIView.animate(withDuration: 0.2) {
-            self.viewPopup.transform = CGAffineTransform(translationX: self.viewPopup.layer.anchorPoint.x, y: self.viewPopup.layer.anchorPoint.x - 20)
-        }
-        return true
     }
 }

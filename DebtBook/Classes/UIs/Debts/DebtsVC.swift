@@ -20,6 +20,7 @@ class DebtsVC: UIViewController {
     var totalDebit = 0
     
     var refreshCtrl = UIRefreshControl()
+    let notification = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,19 +42,23 @@ class DebtsVC: UIViewController {
         self.navigationItem.setLeftBarButton(editButton, animated: true)
         
         loadDebtors()
+        
+        //listen notifycation for update total debit
+        self.notification.addObserver(self, selector: #selector(self.updateTotalDebit), name: NSNotification.Name(rawValue: "updateTotalDebit"), object: self)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    func loadDebtors() {
+    func loadDebtors(isListen: Bool = true) {
         
         if !self.refreshCtrl.isRefreshing {
             self.loading.showLoadingDialog(self)
         }
         
-        DebtServices.shared.getDebtors { (debtors, error) in
+        DebtServices.shared.getDebtors(isListen: isListen) { (debtors, error) in
             
             if self.loading.isAnimating {
                 self.loading.stopAnimating()
@@ -88,9 +93,8 @@ class DebtsVC: UIViewController {
     
     func refresh() {
         self.refreshCtrl.beginRefreshing()
-        self.loadDebtors()
+        self.loadDebtors(isListen: false)
     }
-    
     
     @IBAction func btnAddDebtorClicked(_ sender: Any) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "AddDebtorVC") as? AddDebtorVC else {
@@ -112,6 +116,14 @@ class DebtsVC: UIViewController {
             self.tblDebtors.setEditing(true, animated: true)
             self.navigationItem.leftBarButtonItem?.title = "Xong"
         }
+    }
+    
+    func updateTotalDebit(notification: Notification) {
+        guard let userInfo = notification.userInfo, let totalDebit = userInfo["totalDebit"] as? Int, let idDebtor = userInfo["id"] as? String else {
+            return
+        }
+        
+        DebtServices.shared.updateTotalDebit(with: idDebtor, and: totalDebit)
     }
 }
 
@@ -160,25 +172,11 @@ extension DebtsVC: UITableViewDelegate, UITableViewDataSource {
             
             let vc = VerifyPasswordVC()
             vc.view.frame = self.view.frame
-            vc.view.tag = 99
             vc.delegateDebtor = self
             vc.id = id
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
             self.didMove(toParentViewController: vc)
-            
-            /*
-             
-            
-            self.loading.showLoadingDialog(self)
-            DebtServices.shared.deleteDebtor(with: id, completionHandler: { (error) in
-                self.loading.stopAnimating()
-                if let error = error {
-                    self.showAlert(error, title: "Xoá thất bại", buttons: nil)
-                }                
-            })
- 
-             */
         }
         
         let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal, title: "Sửa") { (rowAction, indexPath) in

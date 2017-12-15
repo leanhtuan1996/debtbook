@@ -19,7 +19,7 @@ class DetailsDebtorVC: UIViewController {
     var checkBorrow = 1
     var checkPayment = 0
     var refresh = UIRefreshControl()
-
+    let notification = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,8 @@ class DetailsDebtorVC: UIViewController {
         self.tblDetailDebtors.dataSource = self
         self.tblDetailDebtors.estimatedRowHeight = 70
         self.tblDetailDebtors.register(UINib(nibName: "DetailsDebtorCell", bundle: nil), forCellReuseIdentifier: "DetailsDebtorCell")
-        self.tblDetailDebtors.refreshControl = self.refresh
+        self.tblDetailDebtors.refreshControl = self.refresh       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,49 +66,20 @@ class DetailsDebtorVC: UIViewController {
             
             self.debtor?.detail = details ?? List<DetailDebtorObject>()
             
+            var totalDebit = self.debtor?.firstDebit ?? 0
+            
+            self.debtor?.detail.forEach({ (detail) in
+                totalDebit += detail.debt
+            })
+            
             DispatchQueue.main.async {
                 self.tblDetailDebtors.reloadData()
-                self.lblTotalDebts.text = "Tổng số tiền nợ: \(self.debtor?.totalDebit ?? 0)"
-            }
-            
-            print("LÍSTEN")
+                self.lblTotalDebts.text = "Tổng số tiền nợ: \(totalDebit)"
+            }            
             
             self.checkBorrow = 1
             self.checkPayment = 0
         }
-        /*
-        DebtServices.shared.getDebtor(with: id) { (debtor, error) in
-            
-            if self.loading.isAnimating {
-                self.loading.stopAnimating()
-            }
-            
-            if self.refresh.isRefreshing {
-                self.refresh.endRefreshing()
-            }
-            
-            if let error = error {
-                self.showAlert(error, title: "Oops", buttons: nil)
-            } else {
-                self.debtor = debtor
-                self.navigationItem.title = self.debtor?.name ?? ""
-                self.tblDetailDebtors.reloadData()
-                
-                self.totalDebt = debtor?.firstDebit ?? 0
-                
-                if let details = debtor?.detail {
-                    details.forEach({ (detail) in
-                        self.totalDebt += detail.debt
-                    })
-                }
-                
-                self.lblTotalDebts.text = "Tổng số tiền nợ: \(self.totalDebt.toString())"
-                
-                self.checkBorrow = 1
-                self.checkPayment = 0
-            }
-        }
- */
     }
     
     func refreshing() {
@@ -126,10 +98,6 @@ class DetailsDebtorVC: UIViewController {
                 return
             }
             
-            guard let id = debtor.id else {
-                return
-            }
-            
             let detail = DetailDebtorObject()
             detail.dateCreated = Date().timeIntervalSince1970.toInt()
             
@@ -137,13 +105,7 @@ class DetailsDebtorVC: UIViewController {
                 detail.debt = debtor.totalDebit * (-1)
             }
             
-            self.loading.showLoadingDialog(self)
-            DebtServices.shared.addDetail(withid: id, detail: detail, completionHandler: { (error) in
-                self.loading.stopAnimating()
-                if let error = error {
-                    self.showAlert(error, title: "Thanh toán thất bại", buttons: nil)
-                }
-            })
+            self.addDetail(with: detail)
         }
         
         let btnCancel = UIAlertAction(title: "Huỷ bỏ", style: UIAlertActionStyle.destructive, handler: nil)
@@ -209,7 +171,7 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let debtor = self.debtor, let id = debtor.id else {
+        guard let debtor = self.debtor else {
             return
         }
         
@@ -233,6 +195,9 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
             detail.debt = debit
             detail.dateCreated = Date().timeIntervalSince1970.toInt()
             
+            self.addDetail(with: detail)
+            
+            /*
             DebtServices.shared.addDetail(withid: id, detail: detail, completionHandler: { (error) in
                 self.loading.stopAnimating()
                 if let error = error {
@@ -240,6 +205,7 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 self.dismiss(animated: true, completion: nil)
             })
+ */
         }
         
         let btnDeleteThisDebt = UIAlertAction(title: "Xoá khoãng tiền này", style: UIAlertActionStyle.destructive) { (action) in
@@ -325,26 +291,51 @@ extension DetailsDebtorVC: UITableViewDelegate, UITableViewDataSource {
 extension DetailsDebtorVC: DetailDebtorDelegate {
     func addDetail(with detail: DetailDebtorObject) -> Void {
         
-        guard let idDebtor = self.debtor?.id else {
+        guard let debtor = self.debtor else {
             return
         }
         
         self.loading.showLoadingDialog(self)
-        DebtServices.shared.addDetail(withid: idDebtor, detail: detail) { (error) in
+        DebtServices.shared.addDetail(with: debtor, detail: detail) { (error) in
             self.loading.stopAnimating()
             if let error = error {
                 self.showAlert(error, title: "Thao tác thất bại", buttons: nil)
                 return
             }
+            self.debtor?.totalDebit += detail.debt
+            
+            self.notification.post(name: NSNotification.Name(rawValue: "updateTotalDebit"), object: self, userInfo: ["totalDebit": self.debtor?.totalDebit ?? 0, "id" : debtor.id ?? ""])
         }
     }
     
     func deleteDetail(withId id: String, _ completed: @escaping(_ error: String?) -> Void) -> Void {
-        guard let idDebtor = self.debtor?.id else {
-            return
+        guard let debtor = self.debtor else {
+            return completed("Debtor were been removed or not found")
         }
         
-        DebtServices.shared.deleteDetail(withIdDebtor: idDebtor, andIdDetail: id) { (error) in
+        
+        //get detailObject with id
+        let detailDebtorObject: DetailDebtorObject? = debtor.detail.elements.first { (detailDebtor) -> Bool in
+            guard let idDetail = detailDebtor.id else {
+                return false
+            }
+            
+            return idDetail == id
+        }
+        
+        guard let detailDebtor = detailDebtorObject else {
+            return completed("Details of Debtor were been removed or not found")
+        }
+        
+        DebtServices.shared.deleteDetail(with: debtor, and: detailDebtor) { (error) in
+            
+            if error == nil {
+                self.debtor?.totalDebit -= detailDebtor.debt
+                self.notification.post(name: NSNotification.Name(rawValue: "updateTotalDebit"), object: self, userInfo: ["totalDebit": self.debtor?.totalDebit ?? 0, "id" : debtor.id ?? ""])
+                
+                return completed(nil)
+            }
+            
             return completed(error)
         }
     }
